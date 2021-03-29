@@ -1,11 +1,10 @@
-import Routers from './Router/Routers';
+import RoutersTest from './Router/RoutersTest';
 import PagingFooter from './components/PagingFooter'
-import './components/test.css';
 
 export default function PagingTest() {
     return (
         <>
-            <Routers/>
+            <RoutersTest/>
             <PagingFooter/>
         </>
     )

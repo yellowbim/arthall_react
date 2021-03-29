@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
+import {BrowserRouter as Router} from "react-router-dom";
 import BoardService from '../service/BoardService';
 import './test.css';
 import GoBack from "./GoBack";
+
 
 class ListBoardComponent extends Component {
     // 1
@@ -15,60 +17,69 @@ class ListBoardComponent extends Component {
 
     componentDidMount() {
         BoardService.getTests(this.props).then((res) => {
-            console.log('props',this.props)
+            console.log('List Props',this.props)
             this.setState({boards: res.data})
         });
     }
 
     goDetailContents = (no) => {
-        console.log('no',no);
-        this.props.history.push('/detailContents?no='+no);
+        console.log('List  no',no);
+        this.props.history.push('/Detail/'+no);      // history.match를 사용하는 방식
+        // this.props.history.push({pathname:'/Detail',state: {no:no}});   // location.history.state를 사용하는 방식
+        console.log('List의 history',this.props.history)
     }
 
 
 
 
     render() {
-        console.log('state',this.state);
+        console.log('List  State',this.state);
         return (
-            <div>
-                <h2 className="text-center">Boards List</h2>
-                <div className ="row">
-                    <table className="table table-striped table-bordered" border={1}>
-                        <thead className="thead">
-                            <tr className="td10">
-                                <th>글 번호</th>
-                                <th>타이틀 </th>
-                                <th>작성자 </th>
-                                <th>작성일 </th>
-                                <th>갱신일 </th>
-                                <th>좋아요수</th>
-                                <th>조회수</th>
-                                <th>상세보기</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                            this.state.boards.map(
-                                board =>
-                                    <tr className="td10" key = {board.no}>
-                                        <td> {board.no} </td>
-                                        <td > {board.title} </td>
-                                        <td> {board.writer} </td>
-                                        <td> {board.ins_date} </td>
-                                        <td> {board.upd_date} </td>
-                                        <td> {board.likes} </td>
-                                        <td> {board.counts} </td>
-                                        {/*<td> <Route path="/detailContents:no" component={board.no}></Route> 상세보기</td>*/}
-                                        <td><button className="test" onClick={() => this.goDetailContents(board.no)}>상세보기</button></td>
-                                    </tr>
-                                )
-                            }
-                        </tbody>
-                    </table>
+            <Router>
+                <div>
+                    <h2 className="text-center">Boards List</h2>
+                    <div className ="row">
+                        <table className="table table-striped table-bordered" border={1}>
+                            <thead className="thead">
+                                <tr className="td10">
+                                    <th>글 번호</th>
+                                    <th>타이틀 </th>
+                                    <th>작성자 </th>
+                                    <th>작성일 </th>
+                                    <th>갱신일 </th>
+                                    <th>좋아요수</th>
+                                    <th>조회수</th>
+                                    <th>상세보기</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                this.state.boards.map(
+                                    board =>
+                                        <tr className="td10" key = {board.no}>
+                                            <td> {board.no} </td>
+                                            <td > {board.title} </td>
+                                            <td> {board.writer} </td>
+                                            <td> {board.ins_date} </td>
+                                            <td> {board.upd_date} </td>
+                                            <td> {board.likes} </td>
+                                            <td> {board.counts} </td>
+                                            <td><button className="test" onClick={() => this.goDetailContents(board.no)}>상세보기</button></td>
+                                            {/*<td>*/}
+                                            {/*    <Link to={"/Detail/" + board.no}>*/}
+                                            {/*        <button className="test">상세보기</button>*/}
+                                            {/*    </Link>*/}
+                                            {/*</td>*/}
+
+                                        </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <GoBack/>
                 </div>
-                <GoBack/>
-            </div>
+            </Router>
         );
     }
 }

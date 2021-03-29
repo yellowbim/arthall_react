@@ -12,7 +12,7 @@ class BoardService{
 
     // ufl뒤에 파라미터를 셋팅
     getTests(data){
-        console.log('data',data);
+        console.log('api data',data);
         return axios.get(BOARD_API_BASE_URL, {params: data});
     }
 }

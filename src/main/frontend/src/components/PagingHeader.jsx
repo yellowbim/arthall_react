@@ -7,7 +7,7 @@ export default class PagingHeader extends Component{
     render(){
         return(
             <>
-                <div><h1>메인 헤더</h1></div>
+                <div><h1>arthall React 메인 헤더</h1></div>
                 <Link to="/List">
                     <button>메인 헤더 링크</button>
                 </Link>

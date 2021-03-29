@@ -6,6 +6,7 @@ import GoBack from "./GoBack";
 class ListBoardComponent extends Component {
     // 1
     constructor(props){
+        console.log('Detail props',props);
         super(props)
 
         this.state = {
@@ -14,14 +15,22 @@ class ListBoardComponent extends Component {
     }
 
     componentDidMount() {
-        BoardService.getTests().then((res) => {
+        const param = this.props.match.params;              // ListBoardComponent에서 첫번째 방식
+        console.log('Detail param1', param)
+
+        // const history = this.props.location.state;          // ListBoardComponent에서 첫번째 방식
+        // console.log('Detail history', history)
+
+        BoardService.getTests(param).then((res) => {
             this.setState({boards: res.data})
         });
     }
 
 
     render() {
-        console.log('state',this.state);
+        console.log('Detail State',this.state);
+        console.log('Detail match',this.props.match)
+
         return (
             <div>
                 <h2 className="text-center">Detail Listt</h2>
@@ -36,7 +45,6 @@ class ListBoardComponent extends Component {
                                 <th>갱신일 </th>
                                 <th>좋아요수</th>
                                 <th>조회수</th>
-                                <th>상세보기</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,7 +59,6 @@ class ListBoardComponent extends Component {
                                         <td> {board.upd_date} </td>
                                         <td> {board.likes} </td>
                                         <td> {board.counts} </td>
-                                        <td><button className="test"> 상세보기</button></td>
                                     </tr>
                                 )
                             }

@@ -30,9 +30,4 @@ public class BoardController {
         return boardService.getAllBoard(param);
     }
 
-//    @RequestMapping(value = "/test/{no}")
-//    public String getDetailContent(@RequestParam("no") int no, BoardDao param){
-//        param.setNo(no);
-//        return boardService.getAllBoard(param);
-//    }
 }
