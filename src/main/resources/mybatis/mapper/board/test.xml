@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="test.arthall.board.map.BoardMap">
+    <select id="getTest" parameterType="test.arthall.board.model.BoardDao" resultType="test.arthall.board.model.BoardDao">
+        SELECT
+                no
+               ,title
+               ,writer
+               ,ins_date
+               ,upd_date
+               ,likes
+               ,counts
+        FROM board
+        <if test="no != null and no != ''">
+            WHERE no = #{no}
+        </if>
+    </select>
+</mapper>

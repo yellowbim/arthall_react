@@ -1,0 +1,17 @@
+spring:
+#  jpa:
+#    show-sql: true
+  datasource:
+    hikari:
+      username: root
+      password: root1234
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/con_node?characterEncoding=utf8
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+logging:
+  level:
+    jdbc.sqlonly: DEBUG
