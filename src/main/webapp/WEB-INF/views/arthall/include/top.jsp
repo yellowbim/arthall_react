@@ -8,7 +8,7 @@
 function logout() {
 	location.href = "/member/logout.do";
 }
-</script> 
+</script>
 
  <div class="header-inner cf">
                 <h1><a href="<%=request.getContextPath()%>/index.do"><span class="hidden">logo</span><img src="<%=request.getContextPath()%>/img/logo.png" alt="logo"></a>

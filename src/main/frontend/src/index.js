@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
-import PagingTest from "./PagingTest";
+import ARTHALL from './arthall/main/main.css'
 
 ReactDOM.render(
   <React.StrictMode>
-    <PagingTest />
+    {/*<PagingTest />*/}
+    <ARTHALL/>
   </React.StrictMode>,
   document.getElementById('root')
 );

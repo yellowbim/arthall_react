@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
+import TOP from '../common/top';
 
-class main extends Component {
+
+export default class main extends Component {
     render(){
         return(
-            <div></div>
+            <>
+                <TOP />
+            </>
         )
     }
 }

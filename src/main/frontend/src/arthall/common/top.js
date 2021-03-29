@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../main/main.css'
 
-class top extends Component {
+export default class top extends Component {
     render(){
         return(
             <div className="header-inner cf">
@@ -14,14 +14,14 @@ class top extends Component {
                     <a href="javascript:;" className="mobile__closeBtn"><i className="fas fa-times fa-3x"></i></a>
                     <div className="right_nav">
                         <ul className="tnb cf">
-                            <c:if test="${empty authUser }">
+                            {/*<c:if test="${empty authUser }">*/}
                                 <li><a href="/member/loginForm.do">로그인</a></li>
                                 <li><a href="/member/joinForm.do">회원가입</a></li>
-                            </c:if>
-                            <c:if test="${!empty authUser }">
-                                <li><a href="#" onClick="logout();">로그아웃</a></li>
-                                <li><a href="/member/mypage.do">마이페이지</a></li>
-                            </c:if>
+                            {/*</c:if>*/}
+                            {/*<c:if test="${!empty authUser }">*/}
+                            {/*    <li><a href="#" onClick="logout();">로그아웃</a></li>*/}
+                            {/*    <li><a href="/member/mypage.do">마이페이지</a></li>*/}
+                            {/*</c:if>*/}
                         </ul>
                         <nav className="gnb">
                             <ul className="cf">
