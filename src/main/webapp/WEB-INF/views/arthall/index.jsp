@@ -18,7 +18,7 @@ function reservForm(playName, playType) {
 }
 </script>
 </head>
-<body>
+<body>hover
 <div id = "wrap">
 		<a href="<%=request.getContextPath()%>/index.do" id="gomain">본문바로가기</a>
 		<!-- S T A R T :: headerArea-->

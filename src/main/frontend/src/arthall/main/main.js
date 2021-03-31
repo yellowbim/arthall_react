@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import './../CSS/main.css';
 import './../CSS/reset.css';
-import img from "../../img/footer.jpg";
 
 
 export default class main extends  Component{

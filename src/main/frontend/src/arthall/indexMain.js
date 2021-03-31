@@ -1,12 +1,14 @@
 import React, {Component} from "react";
-import MAIN from './main/main';
+import FOOTER from './common/footer'
 
 
 export default class indexMain extends Component{
     render(){
         return(
             <>
-                <MAIN />
+                {/*<TOP />*/}
+                {/*<MAIN />*/}
+                <FOOTER />
             </>
         )
     }
