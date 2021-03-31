@@ -1,17 +1,25 @@
 import React, {Component} from 'react';
-import '../main/main.css'
+import './../CSS/footer.css';
+import './../CSS/header.css';
+// import './../CSS/reset.css';
+import img from '../../img/logo/logo.png';
+
 
 export default class top extends Component {
     render(){
         return(
             <div className="header-inner cf">
-                <h1><a href="/index.do"><span className="hidden">logo</span>
-                    <img src="/img/logo.png" alt="logo"/>
+                <h1><a href="/"><span className="hidden">logo</span>
+                    <img src="/logo/logo.png" alt="logo"/>
                     </a>
                 </h1>
                 <div className="mobile">
-                    <a href="javascript:;" className="mobile__openBtn"><i className="fas fa-bars fa-3x"></i></a>
-                    <a href="javascript:;" className="mobile__closeBtn"><i className="fas fa-times fa-3x"></i></a>
+                    <a href="javascript:;" className="mobile__openBtn">
+                        <i className="fas fa-bars fa-3x"></i>
+                    </a>
+                    <a href="javascript:;" className="mobile__closeBtn">
+                        <i className="fas fa-times fa-3x"></i>
+                    </a>
                     <div className="right_nav">
                         <ul className="tnb cf">
                             {/*<c:if test="${empty authUser }">*/}
@@ -72,11 +80,11 @@ export default class top extends Component {
                             </ul>
                         </nav>
                     </div>
-                    <form className="search" action="action_page.php">
-                        <input type="search" name="search" className="t_box" placeholder="검색어를 입력해주세요">
-                            <button type="submit" className="submit"><i className="fa fa-search"></i></button>
-                        </input>
-                    </form>
+                    {/*<form className="search" action="action_page.php">*/}
+                    {/*    <input type="search" name="search" className="t_box" placeholder="검색어를 입력해주세요">*/}
+                    {/*        <button type="submit" className="submit"><i className="fa fa-search"></i></button>*/}
+                    {/*    </input>*/}
+                    {/*</form>*/}
                 </div>
             </div>
         )
