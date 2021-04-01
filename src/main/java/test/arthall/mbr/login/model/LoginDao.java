@@ -1,9 +1,9 @@
-package test.arthall.board.model;
+package test.arthall.mbr.login.model;
 
 import lombok.Data;
 
 @Data
-public class BoardDao {
+public class LoginDao {
 
     private int no;
     private String title;

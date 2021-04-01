@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import BoardService from '../service/BoardService';
 import './test.css';
-import GoBack from "./GoBack";
 
 class ListBoardComponent extends Component {
     // 1
@@ -55,8 +54,8 @@ class ListBoardComponent extends Component {
                                         <td> {board.no} </td>
                                         <td > {board.title} </td>
                                         <td> {board.writer} </td>
-                                        <td> {board.ins_date} </td>
-                                        <td> {board.upd_date} </td>
+                                        <td> {board.insDate} </td>
+                                        <td> {board.updDate} </td>
                                         <td> {board.likes} </td>
                                         <td> {board.counts} </td>
                                     </tr>
@@ -65,7 +64,6 @@ class ListBoardComponent extends Component {
                         </tbody>
                     </table>
                 </div>
-                <GoBack/>
             </div>
         );
     }

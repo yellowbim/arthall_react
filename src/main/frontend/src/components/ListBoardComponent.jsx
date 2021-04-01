@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router} from "react-router-dom";
 import BoardService from '../service/BoardService';
 import './test.css';
-import GoBack from "./GoBack";
 
 
 class ListBoardComponent extends Component {
@@ -77,7 +76,6 @@ class ListBoardComponent extends Component {
                             </tbody>
                         </table>
                     </div>
-                    <GoBack/>
                 </div>
             </Router>
         );

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './../CSS/reset.css';
 import './../CSS/header.css';
+import {Link} from "react-router-dom"; // 페이지 이동을 위한 Link, Link는 html에서 a 태그로 보여짐
 import img from '../../img/logo/logo.png';
 
 
@@ -9,9 +10,10 @@ export default class top extends Component {
         return(
             <header>
                 <div className="header-inner cf">
-                    <h1><a href="/"><span className="hidden">logo</span>
+                    <h1><Link to={"/"}>
+                        <span className="hidden">logo</span>
                         <img src="/logo/logo.png" alt="logo"/>
-                        </a>
+                    </Link>
                     </h1>
                     <div className="mobile">
                         <a href="javascript:;" className="mobile__openBtn">
@@ -23,8 +25,10 @@ export default class top extends Component {
                         <div className="right_nav">
                             <ul className="tnb cf">
                                 {/*<c:if test="${empty authUser }">*/}
-                                    <li><a href="/member/loginForm.do">로그인</a></li>
-                                    <li><a href="/member/joinForm.do">회원가입</a></li>
+                                <li><Link to="/member/loginForm">로그인</Link></li>
+                                <li><Link to="/member/joinForm">회원가입</Link></li>
+                                    {/*<li><a href="/member/loginForm">로그인</a></li>*/}
+                                    {/*<li><a href="/member/joinForm">회원가입</a></li>*/}
                                 {/*</c:if>*/}
                                 {/*<c:if test="${!empty authUser }">*/}
                                 {/*    <li><a href="#" onClick="logout();">로그아웃</a></li>*/}

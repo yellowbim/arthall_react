@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import './../CSS/main.css';
 import './../CSS/reset.css';
+import './../CSS/topBtn.css';
 
 
 export default class main extends  Component{
@@ -18,12 +19,11 @@ export default class main extends  Component{
 
 
     render(){
+
         // visual.js
         const onMouseEnter = (e) =>{
             let value = [false,false,false,false,false];
             value[e] = true;
-
-            console.log('마우스 들어올때 bg',e);
 
             this.setState({
                 bg1:value[0],
@@ -32,7 +32,6 @@ export default class main extends  Component{
                 bg4:value[3],
                 bg5:value[4],
             })
-            console.log(this.state);
         }
 
         const onMouseLeave = (e) =>{
@@ -43,14 +42,7 @@ export default class main extends  Component{
                 bg4:false,
                 bg5:false
             })
-            // alert('마우스 떠남');
         }
-
-        function changeDefault(){
-            let {style} = this.state;
-
-        }
-
 
         return(
             <div id="wrap">

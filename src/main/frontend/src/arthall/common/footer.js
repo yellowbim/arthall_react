@@ -1,4 +1,5 @@
 import './../CSS/footer.css'
+import './../CSS/reset.css'
 
 export default function footer(){
     return(

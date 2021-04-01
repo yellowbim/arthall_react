@@ -15,3 +15,7 @@ spring:
 logging:
   level:
     jdbc.sqlonly: DEBUG
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true

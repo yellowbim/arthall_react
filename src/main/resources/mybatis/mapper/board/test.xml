@@ -6,13 +6,13 @@
 <mapper namespace="test.arthall.board.map.BoardMap">
     <select id="getTest" parameterType="test.arthall.board.model.BoardDao" resultType="test.arthall.board.model.BoardDao">
         SELECT
-                no
-               ,title
-               ,writer
-               ,ins_date
-               ,upd_date
-               ,likes
-               ,counts
+                    NO
+               ,    TITLE
+               ,    WRITER
+               ,    INS_DATE
+               ,    UPD_DATE
+               ,    LIKES
+               ,    COUNTS
         FROM board
         <if test="no != null and no != ''">
             WHERE no = #{no}
