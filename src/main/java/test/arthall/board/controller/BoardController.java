@@ -10,7 +10,7 @@ import test.arthall.board.model.Board;
 import test.arthall.board.model.BoardDao;
 import test.arthall.board.service.BoardService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000","chrome-extension://aejoelaoggembcahagimdiliamlcdmfm"})
 @RestController
 @RequestMapping("/api")
 public class BoardController {
@@ -25,9 +25,14 @@ public class BoardController {
     }
 
 
-    @RequestMapping(value = "/test")
+    @RequestMapping(path = "/test")
     public String getAllContents(BoardDao param){
+        System.out.println("NO 값"+param.getNo());
+        System.out.println("TITLE  값"+param.getTitle());
+        System.out.println("WRITER 값"+param.getWriter());
+
         return boardService.getAllBoard(param);
     }
+
 
 }

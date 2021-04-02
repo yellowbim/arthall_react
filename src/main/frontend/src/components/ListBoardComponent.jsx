@@ -59,8 +59,8 @@ class ListBoardComponent extends Component {
                                             <td> {board.no} </td>
                                             <td > {board.title} </td>
                                             <td> {board.writer} </td>
-                                            <td> {board.ins_date} </td>
-                                            <td> {board.upd_date} </td>
+                                            <td> {board.insDate} </td>
+                                            <td> {board.updDate} </td>
                                             <td> {board.likes} </td>
                                             <td> {board.counts} </td>
                                             <td><button className="test" onClick={() => this.goDetailContents(board.no)}>상세보기</button></td>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="test.arthall.mbr.login.model.LoginDao">
+
+    <select id="getMbrChk" parameterType="test.arthall.mbr.login.model.LoginDao" resultType="test.arthall.mbr.login.model.LoginDao">
+        SELECT
+               SEQ
+             , MBR_NO
+             , MBR_ID
+             , MBR_NM
+             , MBR_SEX
+             , CELL_NO
+             , MBR_AGE
+             , EMAIL
+             , ADDR
+             , DETAIL_ADDR
+             , INS_DATE
+             , UPD_DATE
+        FROM    member
+--         WHERE   MBR_ID      = #{mbrId}
+--         AND     MBR_PWD     = #{mbrPwd}
+    </select>
+</mapper>
