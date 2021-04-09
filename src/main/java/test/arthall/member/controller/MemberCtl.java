@@ -1,4 +1,4 @@
-package test.arthall.mbr.login.controller;
+package test.arthall.member.controller;
 
 
 import com.google.gson.Gson;
@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import test.arthall.mbr.login.model.LoginDao;
-import test.arthall.mbr.login.service.LoginSvc;
+import test.arthall.member.model.MemberDao;
+import test.arthall.member.service.MemberSvc;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 /***
  *  CORS란?
@@ -61,16 +61,18 @@ import java.util.List;
 @CrossOrigin(origins = {"http://localhost:3000","chrome-extension://aejoelaoggembcahagimdiliamlcdmfm"})
 @RestController
 @RequestMapping("/mbr")
-public class LoginCtl {
+public class MemberCtl {
 
     @Autowired
-    private LoginSvc loginSvc;
+    private MemberSvc loginSvc;
 
-    @RequestMapping(path = "/login")
-    public String getMbrChk(LoginDao param){
-        System.out.println("로그인 폼 받기"+ param.getMbrId());
-        System.out.println("로그인 폼 받기"+ param.getMbrPwd());
-        List<LoginDao> vo = loginSvc.getMbrChk(param);
+    /***
+     * 회원 id 중복 체크
+     */
+    @RequestMapping(path = "/valChk")
+    public String getMbrChk(HttpServletRequest request, MemberDao param){
+        System.out.println(param.getMbrId());
+        String vo = loginSvc.getMbDupChk(param);
 
         return new Gson().toJson(vo);
     }

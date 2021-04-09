@@ -1,11 +1,12 @@
-const LOGIN_API_BASE_URL = "http://localhost:8083";
+import axios from 'axios';
+
+const LOGIN_API_BASE_URL = "http://localhost:8083/mbr/valChk";
 
 
 class LoginSvc{
-    // getMbrChk(reqUrl, formData, config){
-    //     let url = LOGIN_API_BASE_URL + reqUrl;
-    //     return axios.post(url, formData, config)
-    // }
+    static getMbrChk(data, config){
+        return axios.post(LOGIN_API_BASE_URL, {params:data}, config);
+    }
 
 
 

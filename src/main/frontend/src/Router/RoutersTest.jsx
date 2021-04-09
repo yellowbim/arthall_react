@@ -1,8 +1,8 @@
 import {BrowserRouter as Router, Route} from "react-router-dom";
-import ListBoardComponent from "../components/ListBoardComponent";
-import DetailContentsComponent from "../components/DetailContentsComponent.jsx";
-import LinkTest from "../components/LinkTest";
-import PagingHeader from "../components/PagingHeader";
+import ListBoardComponent from "../components/pagingTest/ListBoardComponent";
+import DetailContentsComponent from "../components/pagingTest/DetailContentsComponent.jsx";
+import LinkTest from "../components/pagingTest/LinkTest";
+import PagingHeader from "../components/comPagingTest/PagingHeader";
 
 export default function RoutersTest() {
     return (

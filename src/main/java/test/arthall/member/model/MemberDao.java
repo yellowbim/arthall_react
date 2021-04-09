@@ -1,11 +1,11 @@
-package test.arthall.mbr.login.model;
+package test.arthall.member.model;
 
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class LoginDao {
+public class MemberDao {
 
     private int seq;
     private String mbrNo;
@@ -21,5 +21,5 @@ public class LoginDao {
     private Date insDate;
     private Date updDate;
 
-    private String Code;
+    private String code;
 }

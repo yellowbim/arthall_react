@@ -17,6 +17,8 @@ export default class PagingHeader extends Component{
                 <Link to="/Detail">
                     <Button>상세 페이지 이동</Button>
                 </Link>
+                <br/>
+                <div><strong>====================================================================================================</strong></div>
             </>
         )
     }

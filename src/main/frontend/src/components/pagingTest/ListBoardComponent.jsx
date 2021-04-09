@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router} from "react-router-dom";
-import BoardService from '../service/BoardService';
-import './test.css';
+import BoardService from '../../service/BoardService';
+import '../test.css';
 
 
 class ListBoardComponent extends Component {
@@ -15,7 +15,13 @@ class ListBoardComponent extends Component {
     }
 
     componentDidMount() {
-        BoardService.getTests(this.props).then((res) => {
+        const config = {
+            headers: {
+                "username" : "user_id",
+                "password" : "user_pw"
+            }
+        }
+        BoardService.getTest(this.props,config).then((res) => {
             console.log('List Props',this.props)
             this.setState({boards: res.data})
         });

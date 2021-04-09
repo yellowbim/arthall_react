@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import axios from "axios";
 import './../CSS/login.css';
 import './../CSS/reset.css';
 
@@ -26,6 +25,11 @@ export default class login extends Component{
         this.memberChk()
             .then((response) => {
                 console.log('로그인 결과값',response.data);
+                if (response.data.code == '1111'){
+                    alert('아이디와 비밀번호를 확인해주세요');
+                } else {
+
+                }
             })
     }
 
@@ -36,19 +40,19 @@ export default class login extends Component{
         this.setState(nextState);
     }
 
-    memberChk(e){
-        const url = "/mbr/login"
-        const formData = new FormData();
-        formData.append('mbrId',this.state.mbrId)
-        formData.append('mbrPwd',this.state.mbrPwd)
-        const config = {
-            headers: {
-                'content-type':'multipart/form-data'
-            }
-        }
-        return axios.post(url, formData, config)
-
-    }
+    // memberChk(){
+    //     const url = "http://localhost:8083/mbr/valChk"
+    //     const formData = new FormData();
+    //     formData.append('mbrId',this.state.mbrId)
+    //     formData.append('mbrPwd',this.state.mbrPwd)
+    //     const config = {
+    //         headers: {
+    //             'content-type':'multipart/form-data'
+    //         }
+    //     }
+    //     return axios.post(url, formData, config)
+    //
+    // }
 
 
     render(){
@@ -91,8 +95,9 @@ export default class login extends Component{
                                                     <a href="/member/findPasswordForm.do">비밀번호
                                                         찾기</a>
                                                 </p>
+
                                                 <button type="submit" className="form__submit">로그인</button>
-                                                <a href="/member/joinForm.do" className="form__joinBtn">회원가입</a>
+                                                <a href="/member/joinForm" className="form__joinBtn">회원가입</a>
                                             </fieldset>
                                         </form>
                                     </div>

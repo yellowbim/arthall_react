@@ -8,7 +8,9 @@ class FormTest extends Component {
         super(props);
         this.state = {
             mbrId:'',
-            mbrPwd:''
+            mbrPwd:'',
+            id:'',
+            password:''
 
         }
         this.handleFormSubmit = this.handleFormSubmit.bind(this)
@@ -53,16 +55,56 @@ class FormTest extends Component {
         return axios.post(url, formData, config)
     }
 
+    // input 값을 클릭했을때 state에 값을 집어넣고 버튼을 누르면 state 값을 가져옴
+    appChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+    /* 로그인 버튼 클릭 ==> onClick */
+    appClick = () => {
+        console.log(`id는 : ${this.state.id}\n pw는 : ${this.state.password}`);
+    }
+    appKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            this.appClick();
+        }
+    }
 
     render() {
         console.log('List  State',this.state);
+        const { id, password } = this.state;
         return (
-            <form onSubmit={this.handleFormSubmit}>
-                <h1>고객 추가</h1>
-                이름: <input type="text" name="mbrId" value={this.state.mbrId} onChange={this.handleValueChange} /><br/>
-                비밀번호: <input type="text" name="mbrPwd" value={this.state.mbrPwd} onChange={this.handleValueChange} /><br/>
-                <button type="submit">추가하기</button>
-            </form>
+            <>
+                <form onSubmit={this.handleFormSubmit}>
+                    <h1>고객 추가</h1>
+                    이름: <input type="text" name="mbrId" value={this.state.mbrId} onChange={this.handleValueChange} /><br/>
+                    비밀번호: <input type="text" name="mbrPwd" value={this.state.mbrPwd} onChange={this.handleValueChange} /><br/>
+                    <button type="submit">추가하기</button>
+                </form>
+                <br/><br/><br/><br/><br/><br/>
+                <div>
+                    <input type="text" name="id" placeholder="아이디" value={id} onChange={this.appChange} />
+                    <input type="password"
+                           name="password"
+                           placeholder="비밀번호"
+                           value={password}
+                           onChange={this.appChange}
+                           onKeyPress={this.appKeyPress}
+                    />
+                    <button onClick={this.appClick}>로그인</button>
+                </div>
+                
+                
+                <div>
+                    <span>새창열기</span><br/>
+                    <button onClick={() => window.open('https://www.naver.com', '_blank')}>네이버</button>
+
+                </div>
+
+                <br/>
+                <div><strong>====================================================================================================</strong></div>
+            </>
         );
     }
 }

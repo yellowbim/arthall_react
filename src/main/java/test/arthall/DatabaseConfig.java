@@ -10,6 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
@@ -19,36 +20,62 @@ public class DatabaseConfig {
     @Autowired
     private ApplicationContext applicationContext;
 
-    @Bean @ConfigurationProperties(prefix = "spring.datasource.hikari")
-    public HikariConfig hikariConfig() { return new HikariConfig(); }
+    /***
+     * 첫번째 DB 연결
+     */
+    @Bean
+    @Primary
+    @ConfigurationProperties(prefix = "spring.datasource1.hikari")
+    public HikariConfig hikariConfig1() { return new HikariConfig(); }
 
     @Bean
-    public DataSource dataSource() {
-        DataSource dataSource = new HikariDataSource(hikariConfig());
+    @Primary
+    public DataSource dataSource1() {
+        DataSource dataSource = new HikariDataSource(hikariConfig1());
         return dataSource;
     }
 
-    @Bean public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+    @Bean
+    @Primary
+    public SqlSessionFactory sqlSessionFactory1(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
-        sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath*:mybatis/mapper/login/login.xml"));
+        sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath*:mybatis/mapper/*/*.xml"));
         sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis/mybatis-config.xml"));
         return sqlSessionFactoryBean.getObject();
     }
 
-    @Bean public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
+    @Bean
+    @Primary
+    public SqlSessionTemplate sqlSessionTemplate1(SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
 
+
+    /***
+     * 두번째 DB 연결
+     */
 //    @Bean
-//    @ConfigurationProperties(prefix = "mybatis.configuration")
-//    public org.apache.ibatis.session.Configuration mybatisConfg() {
-//        return new org.apache.ibatis.session.Configuration();
+//    @ConfigurationProperties(prefix = "spring.datasource2.hikari")
+//    public HikariConfig hikariConfig2() { return new HikariConfig(); }
+//
+//    @Bean
+//    public DataSource dataSource2() {
+//        DataSource dataSource = new HikariDataSource(hikariConfig2());
+//        return dataSource;
 //    }
-
-
-
-
+//    @Bean
+//    public SqlSessionFactory sqlSessionFactory2(DataSource dataSource) throws Exception {
+//        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+//        sqlSessionFactoryBean.setDataSource(dataSource);
+//        sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath*:mybatis/mapper/board/test.xml"));
+//        sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis/mybatis-config.xml"));
+//        return sqlSessionFactoryBean.getObject();
+//    }
+//    @Bean
+//    public SqlSessionTemplate sqlSessionTemplate2(SqlSessionFactory sqlSessionFactory) {
+//        return new SqlSessionTemplate(sqlSessionFactory);
+//    }
 
 
 }

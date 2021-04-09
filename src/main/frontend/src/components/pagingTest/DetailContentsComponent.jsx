@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import BoardService from '../service/BoardService';
-import './test.css';
+import BoardService from '../../service/BoardService';
+import '../test.css';
 
 class ListBoardComponent extends Component {
     // 1

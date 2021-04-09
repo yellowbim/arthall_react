@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="test.arthall.member.map.MemberMap">
+
+    <!-- 회원가입/로그인: 아이디 중복 체크 -->
+    <select id="getMbDupChk" parameterType="test.arthall.member.model.MemberDao" resultType="int">
+        SELECT
+            COUNT(*) AS CNT
+        FROM    member
+        WHERE   MBR_ID      = #{mbrId}
+    </select>
+
+    <!-- 로그인: 회원 정보 조회 -->
+    <select id="getMbrChk" parameterType="test.arthall.member.model.MemberDao" resultType="test.arthall.member.model.MemberDao">
+        SELECT
+               SEQ
+             , MBR_NO
+             , MBR_ID
+             , MBR_NM
+             , MBR_SEX
+             , CELL_NO
+             , MBR_AGE
+             , EMAIL
+             , ADDR
+             , DETAIL_ADDR
+             , INS_DATE
+             , UPD_DATE
+        FROM    member
+        WHERE   MBR_ID      = #{mbrId}
+        AND     MBR_PWD     = #{mbrPwd}
+    </select>
+
+
+
+</mapper>

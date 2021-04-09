@@ -10,12 +10,16 @@ class BoardService{
         return axios.get(BOARD_API_BASE_URL);
     }
 
-    // GET 방식,   ufl뒤에 파라미터를 셋팅
+    // GET 방식,   url뒤에 파라미터를 셋팅
     getTests(data){
         console.log('api data',data);
         return axios.get(BOARD_API_BASE_URL, {params: data});
     }
 
+    // 포스트 방식
+    getTest(data,config){
+        return axios.post(BOARD_API_BASE_URL, {params:data}, config)
+    }
 
 
     // form 전송

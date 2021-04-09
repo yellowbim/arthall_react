@@ -1,12 +1,21 @@
 spring:
-#  jpa:
-#    show-sql: true
-  datasource:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration
+    #jpa:
+    #show-sql: true
+# 멀티 데이터베이스 설정
+  datasource1:
     hikari:
       username: root
       password: root1234
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      jdbc-url: jdbc:mysql://localhost:3306/arthall?characterEncoding=utf8
+      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      jdbc-url: jdbc:log4jdbc:mysql://localhost:3306/arthall?characterEncoding=utf8
+#  datasource2:
+#    hikari:
+#      username: root
+#      password: root1234
+#      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#      jdbc-url: jdbc:log4jdbc:mysql://localhost:3306/con_node?characterEncoding=utf8
   mvc:
     view:
       prefix: /WEB-INF/views/
@@ -16,7 +25,12 @@ logging:
   level:
     jdbc.sqlonly: DEBUG
 
-mybatis:
-  config-location: classpath:mybatis/mybatis-config.xml
-  configuration:
-    map-underscore-to-camel-case: true
+jwt:
+  secret: jwtsecretkey
+
+
+# 이건 왜 적용이 안되는지를 모르것네
+#mybatis:
+#  config-location: classpath:mybatis/mybatis-config.xml
+#  configuration:
+#    map-underscore-to-camel-case: true
