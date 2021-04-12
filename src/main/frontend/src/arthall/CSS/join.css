@@ -118,11 +118,14 @@ main .main__content{
 .form_list ul>li:nth-of-type(2)>input,
 .form_list ul>li:nth-of-type(3)>input,
 .form_list ul>li:nth-of-type(4)>input,
-.form_list ul>li:nth-of-type(6)>input,
-.form_list ul>li:nth-of-type(7)>input
+.form_list ul>li:nth-of-type(6)>input
 {
     width: 78%;
 }
+.form_list ul>li:nth-of-type(7)>input{
+    width: 60%;
+}
+
 .form_list ul>li>button{
     float: right;
     background-color: #d32e2e;
@@ -201,7 +204,7 @@ main .main__content{
 .form_list ul>li.add_area{
     position: relative;
     width:100%;
-    height: 200px;
+    height: 150px;
 }
 .form_list ul>li.add_area label:after{
     content: "";
@@ -240,12 +243,8 @@ main .main__content{
     top:53px;
     width: 77%;
 }
-.form_list ul>li.add_area input#sample4_jibunAddress{
-    top:101px;
-    width: 77%;
-}
 .form_list ul>li.add_area input#sample4_detailAddress{
-    top:149px;
+    top:102px;
     width: 77%;
 }
 
@@ -263,7 +262,7 @@ main .main__content{
     top: 50%;
     transform: translate(-50%, -50%);
 }
-.form_list ul>li.email_area #email_add{
+.form_list ul>li.email_area #emailAdd{
     position: absolute;
     left: 45%;
     width: 20%;

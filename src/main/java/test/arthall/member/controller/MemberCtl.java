@@ -10,6 +10,8 @@ import test.arthall.member.model.MemberDao;
 import test.arthall.member.service.MemberSvc;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 
 /***
  *  CORS란?
@@ -64,7 +66,7 @@ import javax.servlet.http.HttpServletRequest;
 public class MemberCtl {
 
     @Autowired
-    private MemberSvc loginSvc;
+    private MemberSvc memberSvc;
 
     /***
      * 회원 id 중복 체크
@@ -72,9 +74,35 @@ public class MemberCtl {
     @RequestMapping(path = "/valChk")
     public String getMbrChk(HttpServletRequest request, MemberDao param){
         System.out.println(param.getMbrId());
-        String vo = loginSvc.getMbDupChk(param);
+        String vo = memberSvc.getMbDupChk(param);
 
         return new Gson().toJson(vo);
+    }
+
+    /***
+     * 회원 전화번호 인증
+     */
+    //회원가입_이메일 인증
+    @RequestMapping("/sendSms")
+    public void sendSms(HttpServletRequest req, MemberDao param, HttpServletResponse res) throws Exception {
+
+        memberSvc.sendSms(req, param);
+        res.setContentType("text/html; charset=utf-8");
+    }
+
+    /***
+     * 회원 이메일 인증
+     */
+    //회원가입_이메일 인증
+    @RequestMapping("/sendMail")
+    public void sendMail(HttpServletRequest req, MemberDao param, HttpServletResponse res) throws Exception {
+
+        int ran = memberSvc.sendMail(req, param);
+        res.setContentType("text/html; charset=utf-8");
+
+        PrintWriter out = res.getWriter();
+        out.print(ran);
+        out.flush();
     }
 
 
