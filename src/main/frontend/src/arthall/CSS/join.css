@@ -118,12 +118,10 @@ main .main__content{
 .form_list ul>li:nth-of-type(2)>input,
 .form_list ul>li:nth-of-type(3)>input,
 .form_list ul>li:nth-of-type(4)>input,
-.form_list ul>li:nth-of-type(6)>input
+.form_list ul>li:nth-of-type(6)>input,
+.form_list ul>li:nth-of-type(7)>input
 {
     width: 78%;
-}
-.form_list ul>li:nth-of-type(7)>input{
-    width: 60%;
 }
 
 .form_list ul>li>button{

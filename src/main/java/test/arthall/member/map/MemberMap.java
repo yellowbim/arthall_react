@@ -11,5 +11,8 @@ public interface MemberMap {
     int getMbDupChk(MemberDao param);
 
     MemberDao getMbrChk(MemberDao param);
+    
+    // 문자 발송 정보 추가
+    void setConfirmPhoneINS(MemberDao param);
 
 }

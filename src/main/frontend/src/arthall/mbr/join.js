@@ -8,43 +8,59 @@ import ZipCode from './../common/ZipCode';
 
 export default function Join() {
 
-    let JoinId, JoinPwd, ConfirmPwd, CellNo, Birth, EmailId, EmailAdd  = null;
+    let JoinId, JoinmbrPwd, ConfirmmbrPwd, CellNo, Birth, EmailId, EmailChk  = null;
 
     // 우편번호 찾기 모달 기본 설정
     const [Modal, setModal] = useState(false);
 
     const [inputs, setInputs] = useState({
         // 입력받은 값
-        id:'',
-        pwd:'',
-        cfPwd:'',
+        mbrId:'',
+        mbrmbrPwd:'',
+        mbrPwd:'',
+        cfmbrPwd:'',
         birth:'',
         cellNo:'',
-        sex:'1',
+        sex:'3',
         addr:'',
         addrDetail:'',
         emailId:'',
         emailAdd:'',
         emailSel:'',
         email:'',
-        emailConfirm:'',
-        maketing1:'',
-        maketing2:'',
+        maketing1:false,
+        maketing2:false,
+        emailChk:'',                // 메일 확인(고객입력)
+        // phoneConfirm:'',         // 휴대폰 인증
         member:[],
-        Address:[]
+        Address:[],
+
+        dupCode:'',                 // 아이디 중복 확인코드(서버)
+        emailCode:''                // 메일 인증번호(서버)
     });
 
     useEffect(() => { // useEffect 적용!
         console.log('렌더링이 완료되었습니다!');
-        console.log("아이디",id,"비밀번호", pwd,"비밀번호 확인", cfPwd, "이메일",emailId, emailAdd );
+        console.log("아이디",id,"비밀번호", mbrPwd,"비밀번호 확인", cfmbrPwd, "이메일",emailId, emailAdd );
     });
 
     // input 박스에 값을 넣어주는 경우만 사용
-    const {id, pwd, cfPwd, emailId, emailAdd} = inputs;
+    const {id, mbrPwd, cfmbrPwd, emailId, emailAdd} = inputs;
 
+    // 변경 이벤트
     const onChange = (e) => {
-        const name = e.target.name;
-        const value = e.target.value.trim().replace(/[^a-zA-Z0-9]/gi,'');
+        const name = e.target.name;     // 변경하는 name 넣어놓기
+        let value = e.target.value;   // 변경하는 value 넣어놓기
+
+        if (name == 'id'){
+            value = value.replace(/[^a-zA-Z0-9]/gi,'');
+        } else if (name == 'mbrPwd' || name == 'cfmbrPwd'){
+            value = value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi,'');
+        } else if (name == 'birth'){
+            value = value.replace(/[^0-9]/gi,'');
+        } else if (name == 'addrDetail'){
+            value = value.replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣a-zA-Z0-9]/gi,'');
+        }
 
         setInputs({
             ...inputs,                      // 이게 정확히 무슨 의미일까
@@ -52,8 +68,7 @@ export default function Join() {
         })
     }
 
-
-    // 중복 확인 처리 함수
+    // 아이디 중복 확인 처리 함수
     const onClick = (e) => {
         if (id == ""){alert("아이디를 입력해주세요"); return false;}
         axios.get("http://localhost:8083/mbr/valChk",{params:{mbrId:id}}).then((res) => {
@@ -61,7 +76,10 @@ export default function Join() {
             if (res.data == '1111'){
                 alert("사용중인 아이디 입니다.\n아이디를 다시 입력해주세요");
                 JoinId.focus();
+            } else {
+                alert("사용 가능한 아이디 입니다.");
             }
+            inputs.dupCode = res.data;
         });
     }
 
@@ -103,21 +121,123 @@ export default function Join() {
 
     // 이메일 인증 발송
     const ComfirmEmail = (e) =>{
-        const certiCode = "";
         const email= emailId + '@' + inputs.emailAdd;
-        let url = ""
         axios.get("http://localhost:8083/mbr/sendMail",{params:{email:email}}).then((res) => {
-            console.log(res.data);
+            inputs.emailCode = res.data;
         });
     }
 
+    // 휴대폰 인증 발송
     const ConfirmPhone =(e) =>{
         const certiCode = "";
         console.log("휴대폰번호",inputs.cellNo);
         axios.get("http://localhost:8083/mbr/sendSms",{params:{cellNo:inputs.cellNo}}).then((res) => {
+            inputs.phoneConfirm = res.data;
             console.log(res.data);
         });
     }
+
+    const ChkEmail = () => {
+        if (inputs.emailChk == inputs.emailCode){
+            alert("인증이 확인되었습니다.");
+        } else{
+            alert("인증번호를 다시 입력해주세요");
+        }
+    }
+
+    // 마케팅 동의
+    const maketingAgree = (e) => {
+        if (e.target.name == 'marketing1'){
+            inputs.maketing1 = !inputs.maketing1;
+        } else {
+            inputs.maketing2 = !inputs.maketing2;
+        }
+    }
+
+
+
+    const onSubmit = (e) => {
+        console.log('최종 결과값',inputs);
+
+        // velidation 체크
+        // 아이디 체크
+        if (inputs.id == ''){
+            alert('아이디를 입력해주세요');
+            return;
+        } else if (inputs.dupCode == '1111'){
+            alert("아이디가 중복됩니다.");
+            JoinId.focus();
+            return;
+        } else if (inputs.dupCode == '' ){
+            alert("중복확인을 해주세요");
+            JoinId.focus();
+            return;
+        }
+        console.log('두번째', inputs.mbrPwd.replace(/[^A-Z]/g,''))
+
+        // 비밀번호 대문자 체크
+        if (inputs.mbrPwd == ''){
+            alert("비밀번호를 입력해주세요.");
+            JoinmbrPwd.focus();
+            return;
+        } else if(inputs.mbrPwd.replace(/[^A-Z]/g,'') == ''){
+            alert("비밀번호에 대문자가 포함되어야 합니다.");
+            JoinmbrPwd.focus();
+            return;
+        } else if(inputs.mbrPwd.replace(/[^a-z]/g,'') == ''){
+            alert("비밀번호에 소문자가 포함되어야 합니다.");
+            JoinmbrPwd.focus();
+            return;
+        }
+        else if (inputs.mbrPwd.replace(/[^~!@#$%^&*()_+|<>?:{}]/gi,'') == ''){       // 특수문자 체크
+            alert("비밀번호에 특수문자가 포함되어야 합니다..");
+            JoinmbrPwd.focus();
+            return;
+        }
+        if (inputs.cfmbrPwd != inputs.mbrPwd){
+            alert("비밀번호를 확인해주세요.");
+            ConfirmmbrPwd.focus();
+            return;
+        }
+        if (inputs.cfmbrPwd != inputs.mbrPwd){
+            alert("비밀번호를 확인해주세요.");
+            ConfirmmbrPwd.focus();
+            return;
+        }
+        if (inputs.birth == ''){
+            alert("생년월일을 입력해주세요");
+            Birth.focus();
+            return;
+        }
+        if (inputs.cellNo == ''){
+            alert("연락처를 입력해주세요");
+            CellNo.focus();
+            return;
+        }
+        if (inputs.Address == ''){
+            alert("주소를 입력해주세요");
+            return;
+        }
+        if (inputs.emailId == '' && inputs.emailAdd == ''){
+            alert("이메일을 입력해 주세요.");
+            EmailId.focus();
+            return;
+        }
+        // 정보비교 됬고 이제 form으로 정보만 넘기면됨.
+
+        const qs = require("qs");
+        const config = {
+            // headers: {
+            //     'content-type': 'multipart/form-data'
+            // }
+        }
+        console.log("최종 결과값", qs.stringify(inputs));
+        console.log("최종 결과값", inputs);
+        // return axios.post("http://localhost:8083/mbr/sendSms",qs.stringify(inputs),config);
+    }
+
+
+
 
     return(
 
@@ -143,16 +263,17 @@ export default function Join() {
                                                 <ul>
                                                     <li>
                                                         <label for="id"><span>* </span>아이디</label>
-                                                        <input type="text" name="id" id="id" placeholder="첫글자는 영문이며 4~12자의 영문 대소문자와 숫자로만 입력해주세요." onChange={onChange} value={id} ref={(ref) => {JoinId=ref}}/>
+                                                        <input type="text" name="id" id="id" placeholder="아이디를 입력해주세요." onChange={onChange} value={id} ref={(ref) => {JoinId=ref}}/>
                                                             <button type={"button"} onClick={onClick}  ><span>중복확인</span></button>
                                                     </li>
                                                     <li>
                                                         <label for="pw"><span>* </span>비밀번호</label>
-                                                        <input type="password" name="pwd" id="pwd" placeholder="첫글자는 영문이며 4~12자의 영문 대소문자와 숫자로만 입력해주세요." onChange={onChange} value={pwd} ref={(ref) => {JoinPwd=ref}}/>
+                                                        <input type="password" name="mbrPwd" id="mbrPwd" placeholder="대문자, 소문자, 영어, 특수문자를 포함해주세요." onChange={onChange} value={mbrPwd} ref={(ref) => {JoinmbrPwd=ref}}/>
+                                                        {/*<span style={{fontSize:"15px", fontWeight:"bold", color:"red" }}>사용할 수 없는 아이디 입니다.</span>*/}
                                                     </li>
                                                     <li>
                                                         <label for="pw2"><span>* </span>비밀번호확인</label>
-                                                        <input type="password" name="cfPwd" id="cfPwd" placeholder="비밀번호를 다시 한 번 입력해주세요" onChange={onChange} value={cfPwd} ref={(ref) => {ConfirmPwd=ref}}/>
+                                                        <input type="password" name="cfmbrPwd" id="cfmbrPwd" placeholder="비밀번호를 다시 한 번 입력해주세요" onChange={onChange} value={cfmbrPwd} ref={(ref) => {ConfirmmbrPwd=ref}}/>
                                                     </li>
                                                     <li>
                                                         <label for="name"><span>* </span>이름</label>
@@ -173,7 +294,6 @@ export default function Join() {
                                                     <li>
                                                         <label for="cellNo"><span>* </span>연락처</label>
                                                         <input type="tel" name="cellNo" id="cellNo" placeholder="숫자만 입력해주세요" onChange={onChange} value={CellNo} ref={(ref) => {CellNo=ref}}/>
-                                                        <button type="button" id="mailFuncSend" onClick={ConfirmPhone}>인증번호 발송</button>
                                                     </li>
 
                                                     <li className="add_area">
@@ -184,7 +304,7 @@ export default function Join() {
                                                             Modal && <ZipCode onClose={closeZipCode}/>
                                                         }
                                                         <input type="text" id="sample4_roadAddress" name="sample4_roadAddress" placeholder="주소" value={inputs.Address.SelectType == "J" ? inputs.Address.FullAddress : inputs.Address.JiBunAddress} readOnly disabled="disabled"/>
-                                                        <input type="text" id="sample4_detailAddress" name="sample4_detailAddress" placeholder="상세주소" />
+                                                        <input type="text" id="sample4_detailAddress" name="addrDetail" placeholder="상세주소" onChange={onChange} />
                                                     </li>
 
                                                     <li className="email_area">
@@ -201,25 +321,22 @@ export default function Join() {
                                                                 <button type="button" id="mailFuncSend" onClick={ComfirmEmail}>인증번호 발송</button>
                                                     </li>
                                                     <li className="email_conf_area">
-                                                        <label for="emailConfirm"><span>* </span>이메일 인증 확인</label>
-                                                        <input type="text" name="emailConfirm" id="emailConfirm" placeholder="인증번호를 입력하신 후 확인을 눌러주세요"/>
-                                                        <button type="button" id="mailFuncConf" onClick="return email_Conf();">인증번호 확인</button>
+                                                        <label for="emailChk"><span>* </span>이메일 인증 확인</label>
+                                                        <input type="text" name="emailChk" id="emailChk" placeholder="인증번호를 입력하신 후 확인을 눌러주세요" onChange={onChange} value={EmailChk} ref={(ref) => {EmailChk=ref}}/>
+                                                        <button type="button" id="mailFuncConf" onClick={ChkEmail}>인증번호 확인</button>
                                                     </li>
 
                                                     <li className="chk-1 chk_area">
-                                                        <input type="checkbox" name="chk1" id="chk1"/>
+                                                        <input type="checkbox" name="maketing1" id="chk1" onClick={maketingAgree} checked={inputs.maketing1 ? "checked":null}/>
                                                             <label for="chk1">충무아트센터에서 제공하는 정보를 메일로 받아보시겠습니까? (선택)</label>
-                                                            <input type="hidden" name="ad_email" id="ad_email"/>
                                                     </li>
                                                     <li className="chk-2 chk_area">
-                                                        <input type="checkbox" name="chk2" id="chk2"/>
+                                                        <input type="checkbox" name="maketing2" id="chk2"  onClick={maketingAgree} checked={inputs.maketing2 ? "checked":null}/>
                                                             <label for="chk2">충무아트센터에서 제공하는 정보를 SMS로 받아보시겠습니까? (선택)</label>
-                                                            <input type="hidden" name="ad_tel" id="ad_tel"/>
                                                     </li>
                                                 </ul>
                                                 <div className="btn_yn">
-                                                    <button id="joinRegist" ><span>확인</span>
-                                                    </button>
+                                                    <button id="joinRegist" type="button" onClick={onSubmit} ><span>확인</span></button>
                                                     <button id="joinCancle"><span>취소</span></button>
                                                 </div>
                                             </div>

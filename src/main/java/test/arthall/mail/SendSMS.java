@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public class SendSMS {
 
-    public static void  SendSms(MemberDao param, int ran){
+    public static MemberDao  SendSms(MemberDao param, String ran){
         String api_key = "NCSGW1SKUVJP3M8K";                    // 발급받은 api 키
         String api_secret = "JTN0NR9MIAZAWQF4IAG71II84SHEO3WK"; // 발급받은 api secret 키
         Message coolsms = new Message(api_key,api_secret);
@@ -27,10 +27,14 @@ public class SendSMS {
             //send() 는 메시지를 보내는 함수
             JSONObject obj = (JSONObject) coolsms.send(params);
             System.out.println(obj.toString());
+            param.setState("0");
         } catch (CoolsmsException e) {
             System.out.println(e.getMessage());
             System.out.println(e.getCode());
+            param.setState("1");
         }
+        param.setRan(ran);
+        return param;
     }
 
 }

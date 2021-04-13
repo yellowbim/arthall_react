@@ -13,6 +13,25 @@
         WHERE   MBR_ID      = #{mbrId}
     </select>
 
+    <insert id="setConfirmPhoneINS" parameterType="test.arthall.member.model.MemberDao" >
+        <selectKey keyColumn="seq" order="BEFORE">
+            SELECT IFNULL(MAX(SEQ),0) AS SEQ FROM phone_confirm
+        </selectKey>
+        INSERT INTO  phone_confirm(
+            SEQ
+            , CELL_NO
+            , CONFIRM_NO
+            , STATE
+            ,SND_DTTM
+        ) VALUES (
+            #{seq} + 1
+            , #{cellNo}
+            , #{ran}
+            , #{state}
+            , NOW()
+        )
+    </insert>
+
     <!-- 로그인: 회원 정보 조회 -->
     <select id="getMbrChk" parameterType="test.arthall.member.model.MemberDao" resultType="test.arthall.member.model.MemberDao">
         SELECT

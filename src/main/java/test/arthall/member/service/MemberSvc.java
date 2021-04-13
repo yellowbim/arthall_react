@@ -15,13 +15,13 @@ import static test.arthall.mail.SendSMS.SendSms;
 public class MemberSvc {
 
     @Autowired
-    private MemberMap loginMap;
+    private MemberMap memberMap;
 
     public String getMbDupChk(MemberDao param){
         String resultCode = "";
 
         // 중복 체크
-        if (loginMap.getMbDupChk(param) == 0){
+        if (memberMap.getMbDupChk(param) == 0){
             // 중복 아닌 경우
             resultCode = "0000";
         } else {
@@ -31,9 +31,11 @@ public class MemberSvc {
         return  resultCode;
     }
 
-    public void sendSms(HttpServletRequest req, MemberDao param) throws Exception{
-        int ran = new Random().nextInt(900000)+100000;  // 랜덤 숫자 생성
-        SendSms(param, ran);
+    public String sendSms(HttpServletRequest req, MemberDao param) throws Exception{
+        String ran = Integer.toString(new Random().nextInt(900000)+100000);
+        MemberDao paramDao = SendSms(param, ran);       // 문자 발송
+        memberMap.setConfirmPhoneINS(param);
+        return ran;
     }
 
     public int sendMail(HttpServletRequest req, MemberDao param) throws Exception{

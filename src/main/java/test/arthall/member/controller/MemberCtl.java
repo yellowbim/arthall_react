@@ -84,10 +84,9 @@ public class MemberCtl {
      */
     //회원가입_이메일 인증
     @RequestMapping("/sendSms")
-    public void sendSms(HttpServletRequest req, MemberDao param, HttpServletResponse res) throws Exception {
-
-        memberSvc.sendSms(req, param);
-        res.setContentType("text/html; charset=utf-8");
+    public String sendSms(HttpServletRequest req, MemberDao param, HttpServletResponse res) throws Exception {
+        String ran = memberSvc.sendSms(req, param);
+        return ran;
     }
 
     /***
@@ -104,6 +103,28 @@ public class MemberCtl {
         out.print(ran);
         out.flush();
     }
+
+
+    /***
+     * 회원 가입
+     */
+    @RequestMapping("/join")
+    public void mbrJoin(HttpServletRequest req, MemberDao param, HttpServletResponse res) throws Exception {
+
+        int ran = memberSvc.sendMail(req, param);
+        res.setContentType("text/html; charset=utf-8");
+
+        PrintWriter out = res.getWriter();
+        out.print(ran);
+        out.flush();
+    }
+
+
+
+
+
+
+
 
 
 }

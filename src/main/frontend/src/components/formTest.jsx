@@ -42,17 +42,31 @@ class FormTest extends Component {
 
     // 어차피 여기서 다 넣어주니까 굳이 따로 함수를 만들어 놓을 필요는 없을듯? 하지만 짧게 만들어놓는다
     addCustomer(){
+        console.log("추가하기");
+
+        const qs = require('qs');
+        qs.stringify(this.state);
+
+        // for (let i=0; i<10; i++){
+        //     console.log(i);
+        //     // console.log("폼",this.state[i]);
+        // }
         const url = 'http://localhost:8083/mbr/login';
         const formData = new FormData();
-        formData.append('mbrId', this.state.mbrId)          // 현재 state에 있는 mbrId를 가져옴
-        formData.append('mbrPwd', this.state.mbrPwd)        // 현재 state에 있는 mbrPwd를 가져옴
+        // formData.append("mbrId",JSON.stringify(this.state));
+        // formData.append('mbrId', this.state.mbrId)          // 현재 state에 있는 mbrId를 가져옴
+        // formData.append('mbrPwd', this.state.mbrPwd)        // 현재 state에 있는 mbrPwd를 가져옴
 
+        // formData 확인
+        for(let pair of formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]);
+        }
         const config = {
             // headers: {
             //     'content-type': 'multipart/form-data'
             // }
         }
-        return axios.post(url, formData, config)
+        return axios.post(url, qs.stringify(this.state), config)
     }
 
     // input 값을 클릭했을때 state에 값을 집어넣고 버튼을 누르면 state 값을 가져옴
