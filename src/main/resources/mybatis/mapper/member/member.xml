@@ -13,6 +13,7 @@
         WHERE   MBR_ID      = #{mbrId}
     </select>
 
+    <!-- SMS 발송 이력 저장 -->
     <insert id="setConfirmPhoneINS" parameterType="test.arthall.member.model.MemberDao" >
         <selectKey keyColumn="seq" order="BEFORE">
             SELECT IFNULL(MAX(SEQ),0) AS SEQ FROM phone_confirm
@@ -32,26 +33,75 @@
         )
     </insert>
 
-    <!-- 로그인: 회원 정보 조회 -->
-    <select id="getMbrChk" parameterType="test.arthall.member.model.MemberDao" resultType="test.arthall.member.model.MemberDao">
+    <!-- 저장 : 회원 정보 저장 -->
+    <insert id="setMemberJoinINS" parameterType="test.arthall.member.model.MemberDao">
+        INSERT INTO member(
+              SEQ
+            , MBR_NO
+            , MBR_ID
+            , MBR_PWD
+            , MBR_NM
+            , SEX
+            , BIRTH
+            , CELL_NO
+            , EMAIL
+            , ZIP_CODE
+            , ADDR
+            , ADDR_DETAIL
+            , MAKETING
+            , INS_DATE
+            , UPD_DATE
+        ) VALUES (
+              NEXTVAL(mbr_seq)
+            , LPAD(NEXTVAL(mbr_no_seq) ,8,'0')
+            , #{mbrId}
+            , #{mbrPwd}
+            , #{mbrNm}
+            , #{sex}
+            , #{birth}
+            , #{cellNo}
+            , #{email}
+            , #{zipCode}
+            , #{addr}
+            , #{addrDetail}
+            , #{maketing}
+            , NOW()
+            , NOW()
+        )
+    </insert>
+
+    <!-- 로그인: 회원 존재 유무 체크 -->
+    <select id="getMbrCnt" parameterType="test.arthall.member.model.MemberDao" resultType="int">
         SELECT
-               SEQ
-             , MBR_NO
-             , MBR_ID
-             , MBR_NM
-             , MBR_SEX
-             , CELL_NO
-             , MBR_AGE
-             , EMAIL
-             , ADDR
-             , DETAIL_ADDR
-             , INS_DATE
-             , UPD_DATE
+            COUNT(*) AS CNT
         FROM    member
         WHERE   MBR_ID      = #{mbrId}
         AND     MBR_PWD     = #{mbrPwd}
     </select>
 
+    <!-- 로그인 : 회원 정보 조회 -->
+    <select id="getMbrInfo" parameterType="test.arthall.member.model.MemberDao" resultType="test.arthall.member.model.MemberDao">
+        SELECT
+            SEQ
+             , MBR_NO
+             , MBR_ID
+             , MBR_PWD
+             , MBR_NM
+             , SEX
+             , BIRTH
+             , CELL_NO
+             , EMAIL
+             , ZIP_CODE
+             , ADDR
+             , ADDR_DETAIL
+             , MAKETING
+             , INS_DATE
+             , UPD_DATE
+        FROM MEMBER
+        WHERE   MBR_ID      = #{mbrId}
+        AND     MBR_PWD     = #{mbrPwd}
+
+    </select>
 
 
 </mapper>

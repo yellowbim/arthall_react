@@ -12,14 +12,18 @@ public class MemberDao {
     private String mbrId;
     private String mbrPwd;
     private String mbrNm;
-    private String mbrSex;
+    private String Sex;
+    private String birth;
     private String cellNo;
-    private int mbrAge;
     private String email;
+    private String zipCode;
     private String addr;
-    private String detailAddr;
+    private String addrDetail;
+    private String[] maketings;
+    private String maketing;
     private Date insDate;
     private Date updDate;
+
 
     private String code;
 

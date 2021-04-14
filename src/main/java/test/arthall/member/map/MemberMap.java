@@ -12,7 +12,14 @@ public interface MemberMap {
 
     MemberDao getMbrChk(MemberDao param);
     
-    // 문자 발송 정보 추가
+    // 회원가입 : 문자 발송 정보 추가
     void setConfirmPhoneINS(MemberDao param);
 
+    // 회원가입 : 회원 정보 저장
+    void setMemberJoinINS(MemberDao param);
+
+    // 로그인 : 회원 존재 유무
+    int getMbrCnt(MemberDao param);
+    // 로그인 : 회원 정보 조회
+    MemberDao getMbrInfo(MemberDao param);
 }

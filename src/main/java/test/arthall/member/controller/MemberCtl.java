@@ -69,6 +69,7 @@ public class MemberCtl {
     private MemberSvc memberSvc;
 
     /***
+     * 회원가입
      * 회원 id 중복 체크
      */
     @RequestMapping(path = "/valChk")
@@ -80,6 +81,7 @@ public class MemberCtl {
     }
 
     /***
+     * 회원가입
      * 회원 전화번호 인증
      */
     //회원가입_이메일 인증
@@ -90,6 +92,7 @@ public class MemberCtl {
     }
 
     /***
+     * 회원가입
      * 회원 이메일 인증
      */
     //회원가입_이메일 인증
@@ -109,16 +112,22 @@ public class MemberCtl {
      * 회원 가입
      */
     @RequestMapping("/join")
-    public void mbrJoin(HttpServletRequest req, MemberDao param, HttpServletResponse res) throws Exception {
-
-        int ran = memberSvc.sendMail(req, param);
-        res.setContentType("text/html; charset=utf-8");
-
-        PrintWriter out = res.getWriter();
-        out.print(ran);
-        out.flush();
+    public String mbrJoin(HttpServletRequest req, MemberDao param, HttpServletResponse res) throws Exception {
+        String result = memberSvc.setMemberJoinINS(param);
+        return result;
     }
 
+
+    /***
+     * 회원 로그인
+     * 회원 정보 조회 및 세션 저장
+     * jwt 값으로 토큰을 생성해서 저장하고싶은데 우찌 해야하나
+     */
+    @RequestMapping("/login")
+    public String mbrLogin(HttpServletRequest req, MemberDao param, HttpServletResponse res) throws Exception {
+        MemberDao vo = memberSvc.getMbrInfo(param);
+        return new Gson().toJson(vo);
+    }
 
 
 

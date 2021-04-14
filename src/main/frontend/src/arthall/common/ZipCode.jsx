@@ -42,7 +42,7 @@ export default class MyModal extends Component{
                     jibunAddress = data.autoJibunAddress + (extraAddress !== "" ? ` (${extraAddress})` : "");
                 }
             }
-            this.setState({ZipCode:data.zonecode, JiBunAddress:fullAddress, FullAddress:jibunAddress, SelectType:data.userSelectedType })
+            this.setState({ZipCode:data.zonecode, JiBunAddress:jibunAddress, FullAddress:fullAddress, SelectType:data.userSelectedType })
             this.props.onClose(this.state);
         };
 

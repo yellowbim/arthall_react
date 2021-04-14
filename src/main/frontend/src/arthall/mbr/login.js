@@ -1,10 +1,10 @@
 import React, {Component} from "react";
+import axios from 'axios';
 import './../CSS/login.css';
 import './../CSS/reset.css';
 
 
 export default class login extends Component{
-
     constructor(props) {
         super(props);
 
@@ -21,14 +21,18 @@ export default class login extends Component{
     }
 
     handleFormSubmit(e){            // 페이지 새로고침이 아님
+
+        // 페이지 새로고침 방지
         e.preventDefault()
+
         this.memberChk()
             .then((response) => {
                 console.log('로그인 결과값',response.data);
                 if (response.data.code == '1111'){
                     alert('아이디와 비밀번호를 확인해주세요');
                 } else {
-
+                    cookie.
+                    this.props.history.push("/");
                 }
             })
     }
@@ -40,22 +44,35 @@ export default class login extends Component{
         this.setState(nextState);
     }
 
-    // memberChk(){
-    //     const url = "http://localhost:8083/mbr/valChk"
-    //     const formData = new FormData();
-    //     formData.append('mbrId',this.state.mbrId)
-    //     formData.append('mbrPwd',this.state.mbrPwd)
-    //     const config = {
-    //         headers: {
-    //             'content-type':'multipart/form-data'
-    //         }
-    //     }
-    //     return axios.post(url, formData, config)
-    //
-    // }
+    memberChk(){
+        const url = "http://localhost:8083/mbr/login"
+        const formData = new FormData();
+        formData.append('mbrId',this.state.mbrId)
+        formData.append('mbrPwd',this.state.mbrPwd)
+        const config = {
+            headers: {
+                'content-type':'multipart/form-data'
+            }
+        }
+        return axios.post(url, formData, config)
+
+
+    }
+
+
+
+    login(){
+        let mbrId = this.state.mbrId
+            , mbrPwd = this.state.mbrPwd;
+        if (mbrId && mbrPwd) this.props.dispatch(login(mbrId,mbrPwd));      //dispatch?
+        else alert('아디 비번을 확인하세요');
+    }
 
 
     render(){
+        const http = require("http");
+        const cookie = require('cookie');
+
         return(
             <div id="wrap">
                 <a href="/index.do" id="gomain">본문바로가기</a>

@@ -16,24 +16,23 @@ export default function Join() {
     const [inputs, setInputs] = useState({
         // 입력받은 값
         mbrId:'',
-        mbrmbrPwd:'',
         mbrPwd:'',
         cfmbrPwd:'',
         birth:'',
         cellNo:'',
         sex:'3',
+        zipCode:'',
         addr:'',
         addrDetail:'',
         emailId:'',
         emailAdd:'',
         emailSel:'',
         email:'',
+        maketings:[],
         maketing1:false,
         maketing2:false,
         emailChk:'',                // 메일 확인(고객입력)
         // phoneConfirm:'',         // 휴대폰 인증
-        member:[],
-        Address:[],
 
         dupCode:'',                 // 아이디 중복 확인코드(서버)
         emailCode:''                // 메일 인증번호(서버)
@@ -41,23 +40,23 @@ export default function Join() {
 
     useEffect(() => { // useEffect 적용!
         console.log('렌더링이 완료되었습니다!');
-        console.log("아이디",id,"비밀번호", mbrPwd,"비밀번호 확인", cfmbrPwd, "이메일",emailId, emailAdd );
+        console.log("아이디",mbrId,"비밀번호", mbrPwd,"비밀번호 확인", cfmbrPwd, "이메일",emailId, emailAdd );
     });
 
     // input 박스에 값을 넣어주는 경우만 사용
-    const {id, mbrPwd, cfmbrPwd, emailId, emailAdd} = inputs;
+    const {mbrId, mbrPwd, cfmbrPwd, emailId, emailAdd} = inputs;
 
     // 변경 이벤트
     const onChange = (e) => {
         const name = e.target.name;     // 변경하는 name 넣어놓기
         let value = e.target.value;   // 변경하는 value 넣어놓기
 
-        if (name == 'id'){
+        if (name == 'mbrId'){
             value = value.replace(/[^a-zA-Z0-9]/gi,'');
         } else if (name == 'mbrPwd' || name == 'cfmbrPwd'){
             value = value.replace(/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi,'');
         } else if (name == 'birth'){
-            value = value.replace(/[^0-9]/gi,'');
+            value = value.replace(/[^0-9]/g,'');
         } else if (name == 'addrDetail'){
             value = value.replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣a-zA-Z0-9]/gi,'');
         }
@@ -70,8 +69,8 @@ export default function Join() {
 
     // 아이디 중복 확인 처리 함수
     const onClick = (e) => {
-        if (id == ""){alert("아이디를 입력해주세요"); return false;}
-        axios.get("http://localhost:8083/mbr/valChk",{params:{mbrId:id}}).then((res) => {
+        if (mbrId == ""){alert("아이디를 입력해주세요"); return false;}
+        axios.get("http://localhost:8083/mbr/valChk",{params:{mbrId:mbrId}}).then((res) => {
             // 중복 확인은 결과를 담을 필요가 없음
             if (res.data == '1111'){
                 alert("사용중인 아이디 입니다.\n아이디를 다시 입력해주세요");
@@ -88,11 +87,14 @@ export default function Join() {
         document.body.style.overflow="hidden";
     }
     const closeZipCode = (data) => {
+        console.log('data',data);
         if (data != ""){
-            setInputs({
-                ...inputs,
-                Address:data
-            })
+            inputs.zipCode = data.ZipCode;           // 우편번호
+            if (data.SelectType == "R"){
+                inputs.addr = data.FullAddress;
+            } else {
+                inputs.addr = data.JiBunAddress;
+            }
         }
 
         setModal(false)
@@ -123,6 +125,7 @@ export default function Join() {
     const ComfirmEmail = (e) =>{
         const email= emailId + '@' + inputs.emailAdd;
         axios.get("http://localhost:8083/mbr/sendMail",{params:{email:email}}).then((res) => {
+            console.log(res.data);
             inputs.emailCode = res.data;
         });
     }
@@ -157,12 +160,11 @@ export default function Join() {
 
 
     const onSubmit = (e) => {
-        console.log('최종 결과값',inputs);
-
         // velidation 체크
         // 아이디 체크
-        if (inputs.id == ''){
+        if (inputs.mbrId == ''){
             alert('아이디를 입력해주세요');
+            JoinId.focus();
             return;
         } else if (inputs.dupCode == '1111'){
             alert("아이디가 중복됩니다.");
@@ -199,11 +201,6 @@ export default function Join() {
             ConfirmmbrPwd.focus();
             return;
         }
-        if (inputs.cfmbrPwd != inputs.mbrPwd){
-            alert("비밀번호를 확인해주세요.");
-            ConfirmmbrPwd.focus();
-            return;
-        }
         if (inputs.birth == ''){
             alert("생년월일을 입력해주세요");
             Birth.focus();
@@ -214,7 +211,7 @@ export default function Join() {
             CellNo.focus();
             return;
         }
-        if (inputs.Address == ''){
+        if (inputs.zipCode == ''){
             alert("주소를 입력해주세요");
             return;
         }
@@ -227,13 +224,34 @@ export default function Join() {
 
         const qs = require("qs");
         const config = {
-            // headers: {
-            //     'content-type': 'multipart/form-data'
-            // }
+            headers: {
+                "username" : "user_id",
+                "password" : "user_pw"
+            }
         }
+
+        // 이메일 합치기
+        inputs.email = inputs.emailId + '@' + inputs.emailAdd;
+
+        // 마케팅 동의 체크
+        if (inputs.maketing1 == true){inputs.maketings[0] = '1'}
+        else {inputs.maketings[0] = '0'}
+        if (inputs.maketing2 == true){inputs.maketings[1] = '1'}
+        else {inputs.maketings[1] = '0'}
+
+
         console.log("최종 결과값", qs.stringify(inputs));
         console.log("최종 결과값", inputs);
-        // return axios.post("http://localhost:8083/mbr/sendSms",qs.stringify(inputs),config);
+
+        // axios.post("http://localhost:8083/mbr/join",qs.stringify(inputs),config).then((res) => {
+        //     console.log(res.data);
+        //     if (res.data == '0000'){
+        //         alert("축하합니다~! \n 회원가입이 완료되었습니다");
+        //         document.location.href="/member/loginForm";
+        //     } else{
+        //
+        //     }
+        // });
     }
 
 
@@ -262,8 +280,8 @@ export default function Join() {
                                                 <span className="star">*필수기입항목</span>
                                                 <ul>
                                                     <li>
-                                                        <label for="id"><span>* </span>아이디</label>
-                                                        <input type="text" name="id" id="id" placeholder="아이디를 입력해주세요." onChange={onChange} value={id} ref={(ref) => {JoinId=ref}}/>
+                                                        <label for="mbrId"><span>* </span>아이디</label>
+                                                        <input type="text" name="mbrId" id="mbrId" placeholder="아이디를 입력해주세요." onChange={onChange} value={JoinId} ref={(ref) => {JoinId=ref}}/>
                                                             <button type={"button"} onClick={onClick}  ><span>중복확인</span></button>
                                                     </li>
                                                     <li>
@@ -276,8 +294,8 @@ export default function Join() {
                                                         <input type="password" name="cfmbrPwd" id="cfmbrPwd" placeholder="비밀번호를 다시 한 번 입력해주세요" onChange={onChange} value={cfmbrPwd} ref={(ref) => {ConfirmmbrPwd=ref}}/>
                                                     </li>
                                                     <li>
-                                                        <label for="name"><span>* </span>이름</label>
-                                                        <input type="text" name="name" id="name" placeholder="이름을 입력해 주세요"/>
+                                                        <label for="mbrNm"><span>* </span>이름</label>
+                                                        <input type="text" name="mbrNm" id="mbrNm" placeholder="이름을 입력해 주세요" onChange={onChange}/>
                                                     </li>
                                                     <li>
                                                         <label for="gender"><span>* </span>성별</label>
@@ -289,7 +307,7 @@ export default function Join() {
                                                     </li>
                                                     <li>
                                                         <label for="datepicker"><span>* </span>생년월일</label>
-                                                        <input type="text" className="datepicker" id="birth" name="birth" placeholder="년도 / 월 / 일을 입력해주세요 (ex: 19920510)" onChange={onChange} value={Birth} ref={(ref) => {Birth=ref}}/>
+                                                        <input type="text" className="datepicker" id="birth" name="birth" placeholder="년도 / 월 / 일을 입력해주세요 (ex: 19920510)" onChange={onChange} value={inputs.birth} ref={(ref) => {Birth=ref}}/>
                                                     </li>
                                                     <li>
                                                         <label for="cellNo"><span>* </span>연락처</label>
@@ -298,12 +316,12 @@ export default function Join() {
 
                                                     <li className="add_area">
                                                         <label for="sample4_postcode"><span>* </span>주소</label>
-                                                        <input type="text" id="sample4_postcode" name="sample4_postcode" placeholder="우편번호" value={inputs.Address.ZipCode} disabled="disabled"/>
+                                                        <input type="text" id="sample4_postcode" name="sample4_postcode" placeholder="우편번호" value={inputs.zipCode} disabled="disabled"/>
                                                         <input type="button" onClick={openZipCode} value="우편번호 찾기" id="post_btn"/>
                                                         {
                                                             Modal && <ZipCode onClose={closeZipCode}/>
                                                         }
-                                                        <input type="text" id="sample4_roadAddress" name="sample4_roadAddress" placeholder="주소" value={inputs.Address.SelectType == "J" ? inputs.Address.FullAddress : inputs.Address.JiBunAddress} readOnly disabled="disabled"/>
+                                                        <input type="text" id="sample4_roadAddress" name="sample4_roadAddress" placeholder="주소" value={inputs.addr} readOnly disabled="disabled"/>
                                                         <input type="text" id="sample4_detailAddress" name="addrDetail" placeholder="상세주소" onChange={onChange} />
                                                     </li>
 
