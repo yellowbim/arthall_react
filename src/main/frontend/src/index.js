@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import PAGINGTEST from './PagingTest';
+import './arthall/CSS/header.css';
 
 ReactDOM.render(
   <React.StrictMode>

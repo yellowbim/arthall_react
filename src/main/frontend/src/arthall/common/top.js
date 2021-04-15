@@ -3,10 +3,47 @@ import './../CSS/reset.css';
 import './../CSS/header.css';
 import {Link} from "react-router-dom"; // 페이지 이동을 위한 Link, Link는 html에서 a 태그로 보여짐
 import img from '../../img/logo/logo.png';
+import LoginSession from './LoginSession';
 
 
 export default class top extends Component {
+    constructor(props) {
+        super(props);
+        this.state = ({
+            logged: false,
+            onLogin: this.onLogin,
+            onLogout: this.onLogout,
+        })
+    }
+
+    onLogin = () => {
+        this.setState({
+            logged:true
+        })
+        console.log(window.sessionStorage.getItem("mbrId"));
+    }
+
+    onLogout = () => {
+        if(window.confirm("로그아웃하시겠습니까?")){
+            this.setState({
+                logged:false
+            })
+            window.sessionStorage.clear();
+        }
+    }
+
+    componentDidMount() {
+        const mbrId = window.sessionStorage.getItem("mbrId");
+        if (mbrId){
+            this.onLogin();
+        } else {
+            this.onLogout();
+        }
+    }
+
     render(){
+        const { logged, onLogout } = this.state;
+
         return(
             <header>
                 <div className="header-inner cf">
@@ -24,16 +61,7 @@ export default class top extends Component {
                         </a>
                         <div className="right_nav">
                             <ul className="tnb cf">
-                                {/*<c:if test="${empty authUser }">*/}
-                                <li><Link to="/member/loginForm">로그인</Link></li>
-                                <li><Link to="/member/joinForm">회원가입</Link></li>
-                                    {/*<li><a href="/member/loginForm">로그인</a></li>*/}
-                                    {/*<li><a href="/member/joinForm">회원가입</a></li>*/}
-                                {/*</c:if>*/}
-                                {/*<c:if test="${!empty authUser }">*/}
-                                {/*    <li><a href="#" onClick="logout();">로그아웃</a></li>*/}
-                                {/*    <li><a href="/member/mypage.do">마이페이지</a></li>*/}
-                                {/*</c:if>*/}
+                                <LoginSession logged={logged} onLogout={onLogout}/>
                             </ul>
                             <nav className="gnb">
                                 <ul className="cf">

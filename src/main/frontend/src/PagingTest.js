@@ -1,17 +1,19 @@
-import RoutersTest from './Router/RoutersTest';
-import PagingFooter from './components/comPagingTest/PagingFooter'
-import FormTest from './components/formTest';
-import KaKaoMapApi from "./components/pagingTest/kakaoMapApi";
+import TOP from './arthall/common/top';
+import {BrowserRouter as Router} from 'react-router-dom';
 
 export default function PagingTest() {
     return (
         <>
+            <Router>
+                <TOP/>
+            </Router>
+
             {/*<FunctionKaKaoMap/>*/}
-            <KaKaoMapApi/>
-            <RoutersTest/>
-            <PagingFooter/>
-            <FormTest/>
-            <br/>
+            {/*<KaKaoMapApi/>*/}
+            {/*<RoutersTest/>*/}
+            {/*<PagingFooter/>*/}
+            {/*<FormTest/>*/}
+            {/*<br/>*/}
         </>
     )
 }

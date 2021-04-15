@@ -11,7 +11,7 @@ export default class login extends Component{
         this.state = {
             mbrId:'',
             mbrPwd:'',
-            mbrInfo:[]
+            mbrInfo:''
         }
 
         this.handleFormSubmit = this.handleFormSubmit.bind(this)
@@ -31,8 +31,10 @@ export default class login extends Component{
                 if (response.data.code == '1111'){
                     alert('아이디와 비밀번호를 확인해주세요');
                 } else {
-                    cookie.
-                    this.props.history.push("/");
+                    const qs = require("qs");
+                    window.sessionStorage.setItem("mbrId",this.state.mbrId);         // session 에 mbrinfo 저장
+                    document.location.href = "/";
+                    // this.props.history.push("/");
                 }
             })
     }
