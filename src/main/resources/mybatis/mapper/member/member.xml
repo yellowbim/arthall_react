@@ -7,6 +7,7 @@
 
     <!-- 회원가입/로그인: 아이디 중복 체크 -->
     <select id="getMbDupChk" parameterType="test.arthall.member.model.MemberDao" resultType="int">
+        /* MemberMap.getMbDupChk */
         SELECT
             COUNT(*) AS CNT
         FROM    member

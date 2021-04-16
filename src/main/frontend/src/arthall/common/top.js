@@ -24,6 +24,7 @@ export default class top extends Component {
     }
 
     onLogout = () => {
+        // 첫 랜더링에는 뜨면 안됨
         if(window.confirm("로그아웃하시겠습니까?")){
             this.setState({
                 logged:false
@@ -34,13 +35,15 @@ export default class top extends Component {
 
     componentDidMount() {
         const mbrId = window.sessionStorage.getItem("mbrId");
-        if (mbrId){
-            this.onLogin();
-        } else {
-            this.onLogout();
+        if (this.props.history != undefined){   // 처음 들어오면 실행 안되게 막음
+            if (mbrId){
+                this.onLogin();
+            } else {
+                this.onLogout();
+            }
         }
     }
-
+ㅡ먀
     render(){
         const { logged, onLogout } = this.state;
 
