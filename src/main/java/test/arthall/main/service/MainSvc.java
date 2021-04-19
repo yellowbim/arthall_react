@@ -13,14 +13,14 @@ public class MainSvc {
     @Autowired
     private MainMap mainMap;
 
-    // 메인 정보 가져오기
-    public List<MainDao> getMainInfo(MainDao param){
-        // 공연 정보 가져오기
+    // 파일 리스트 가져오기
+    public List<MainDao> getFileContext(MainDao param){
+        return mainMap.getFileContext(param);
+    }
 
-
-
-
-        return
+    // 파일 업로드하기
+    public void setFileContext(MainDao param){
+        mainMap.setFileContext(param);
     }
 
 

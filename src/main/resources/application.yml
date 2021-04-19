@@ -34,3 +34,8 @@ jwt:
 #  config-location: classpath:mybatis/mybatis-config.xml
 #  configuration:
 #    map-underscore-to-camel-case: true
+
+
+multipart:
+  maxFileSiz: 1MB
+  maxRequestSize: 1MB

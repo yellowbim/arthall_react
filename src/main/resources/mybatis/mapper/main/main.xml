@@ -6,7 +6,7 @@
 <mapper namespace="test.arthall.main.map.MainMap">
 
     <!-- 공연 정보 가져오기 -->
-    <select id="getPlayList" parameterType="test.arthall.main.model.MainDao" resultType="test.arthall.main.model.">
+    <select id="getPlayList" parameterType="test.arthall.main.model.MainDao" resultType="test.arthall.main.model.MainDao">
         SELECT
                   NO
                 , hallName
@@ -25,4 +25,24 @@
                 , filename
         FROM    play
     </select>
+
+    <!-- 파일 조회 -->
+    <select id="getFileContext" parameterType="test.arthall.main.model.MainDao" resultType="test.arthall.main.model.MainDao">
+        SELECT
+                SEQ
+                , FILE_NAME
+        FROM fileupload
+        <if test='seq != null and seq != ""'>
+            WHERE SEQ = #{seq}
+        </if>
+    </select>
+
+    <!-- 파일 insert -->
+    <insert id="setFileContext" parameterType="test.arthall.main.model.MainDao">
+        INSERT INTO fileupload(
+            FILE_NAME
+        )   VALUES (
+            #{fileName}
+        )
+    </insert>
 </mapper>

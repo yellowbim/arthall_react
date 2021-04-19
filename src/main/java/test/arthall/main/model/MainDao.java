@@ -31,5 +31,7 @@ public class MainDao {
     private String state;   // 문자 발송 상태
     private String ran;     // 랜덤 문자 번호
 
+    private String fileName;
+
 
 }

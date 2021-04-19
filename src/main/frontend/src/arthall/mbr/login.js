@@ -66,8 +66,11 @@ export default class login extends Component{
     login(){
         let mbrId = this.state.mbrId
             , mbrPwd = this.state.mbrPwd;
-        if (mbrId && mbrPwd) this.props.dispatch(login(mbrId,mbrPwd));      //dispatch?
-        else alert('아디 비번을 확인하세요');
+        // if (mbrId && mbrPwd) {
+        //     this.props.dispatch(login(mbrId,mbrPwd));           //dispatch?
+        // } else {
+        //     alert('아디 비번을 확인하세요');
+        // }
     }
 
 

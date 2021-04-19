@@ -387,6 +387,7 @@ module.exports = function (webpackEnv) {
               options: {
                 limit: imageInlineSizeLimit,
                 name: 'static/media/[name].[hash:8].[ext]',
+                esModule: false,
               },
             },
             // Process application JS with Babel.
@@ -548,6 +549,7 @@ module.exports = function (webpackEnv) {
               exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
               options: {
                 name: 'static/media/[name].[hash:8].[ext]',
+                esModule: false,
               },
             },
             // ** STOP ** Are you adding a new loader?

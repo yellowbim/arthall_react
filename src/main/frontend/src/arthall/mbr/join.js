@@ -243,15 +243,15 @@ export default function Join() {
         console.log("최종 결과값", qs.stringify(inputs));
         console.log("최종 결과값", inputs);
 
-        // axios.post("http://localhost:8083/mbr/join",qs.stringify(inputs),config).then((res) => {
-        //     console.log(res.data);
-        //     if (res.data == '0000'){
-        //         alert("축하합니다~! \n 회원가입이 완료되었습니다");
-        //         document.location.href="/member/loginForm";
-        //     } else{
-        //
-        //     }
-        // });
+        axios.post("http://localhost:8083/mbr/join",qs.stringify(inputs),config).then((res) => {
+            console.log(res.data);
+            if (res.data == '0000'){
+                alert("축하합니다~! \n 회원가입이 완료되었습니다");
+                document.location.href="/member/loginForm";
+            } else{
+
+            }
+        });
     }
 
 

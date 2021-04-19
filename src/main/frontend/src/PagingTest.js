@@ -1,13 +1,9 @@
-import TOP from './arthall/common/top';
-import {BrowserRouter as Router} from 'react-router-dom';
+import ImgTest from './components/upload/imgTest';
 
 export default function PagingTest() {
     return (
         <>
-            <Router>
-                <TOP/>
-            </Router>
-
+            <ImgTest/>
             {/*<FunctionKaKaoMap/>*/}
             {/*<KaKaoMapApi/>*/}
             {/*<RoutersTest/>*/}

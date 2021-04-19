@@ -10,7 +10,7 @@ import test.arthall.play.service.PlaySvc;
 // 로컬 react서버,  크롬 api test 사이트 CORS 제한 해제
 @CrossOrigin(origins = {"http://localhost:3000","chrome-extension://aejoelaoggembcahagimdiliamlcdmfm"})
 @RestController
-@RequestMapping("/mbr")
+@RequestMapping("/play")
 public class PlayCtl {
 
     @Autowired
