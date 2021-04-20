@@ -21,27 +21,17 @@ export default class main extends  Component{
     render(){
 
         // visual.js
+        // 마우스 오버 이벤트
         const onMouseEnter = (e) =>{
-            let value = [false,false,false,false,false];
-            value[e] = true;
-
             this.setState({
-                bg1:value[0],
-                bg2:value[1],
-                bg3:value[2],
-                bg4:value[3],
-                bg5:value[4],
+                [e.target.id]:!this.state[e.target.id]
             })
         }
 
+        // 마우스 리브 이벤트
+        // 이건 특정 방향으로 나갔을때만 적용됨 (e.target 값이 다름)
         const onMouseLeave = (e) =>{
-            this.setState({
-                bg1:false,
-                bg2:false,
-                bg3:false,
-                bg4:false,
-                bg5:false
-            })
+            this.setState({bg1:false,bg2:false,bg3:false,bg4:false,bg5:false})
         }
 
         return(
@@ -50,24 +40,23 @@ export default class main extends  Component{
 
                 <section className="mainVisual">
                     <div className="visualView">
-                        <div className={"bg1 " + (this.state.bg1 ? "show" : "")} style={{width:this.state.bg1 ? "100%":"20%"}}>
+                        <div className={"bg1 " + (this.state.bg1 ? "show" : "")} style={{width:this.state.bg1 ? "100%":"20%", backgroundImage:"url(/main/img_main_visual1.jpg)"}}>
                         </div>
 
-                        <div className={"bg2 " + (this.state.bg2 ? "show" : "")} style={{width:this.state.bg2 ? "100%":"20%", left:this.state.bg2 ? "0%":"20%"}}>
+                        <div className={"bg2 " + (this.state.bg2 ? "show" : "")} style={{width:this.state.bg2 ? "100%":"20%", left:this.state.bg2 ? "0%":"20%", backgroundImage:"url(/main/img_main_visual2.jpg)"}}>
                         </div>
 
-                        <div className={"bg3 " + (this.state.bg3 ? "show" : "")} style={{width:this.state.bg3 ? "100%":"20%", left:this.state.bg3 ? "0%":"40%"}}>
+                        <div className={"bg3 " + (this.state.bg3 ? "show" : "")} style={{width:this.state.bg3 ? "100%":"20%", left:this.state.bg3 ? "0%":"40%", backgroundImage:"url(/main/img_main_visual3.jpg)"}}>
                         </div>
 
-                        <div className={"bg4 " + (this.state.bg4 ? "show" : "")} style={{width:this.state.bg4 ? "100%":"20%", left:this.state.bg4 ? "0%":"60%"}}>
+                        <div className={"bg4 " + (this.state.bg4 ? "show" : "")} style={{width:this.state.bg4 ? "100%":"20%", left:this.state.bg4 ? "0%":"60%", backgroundImage:"url(/main/img_main_visual4.jpg)"}}>
                         </div>
 
-                        <div className={"bg5 " + (this.state.bg5 ? "show" : "")} style={{width:this.state.bg5 ? "100%":"20%", left:this.state.bg5 ? "0%":"80%"}}>
+                        <div className={"bg5 " + (this.state.bg5 ? "show" : "")} style={{width:this.state.bg5 ? "100%":"20%", left:this.state.bg5 ? "0%":"80%", backgroundImage:"url(/main/img_main_visual5.jpg)"}}>
                         </div>
                     </div>
-                    <button type="buton"  onClick={this.changeDefault}>길이 변경하기</button>
                     <div className="visual cf">
-                        <div className="bg1" onMouseEnter={() => onMouseEnter(0)} onMouseLeave={onMouseLeave}>
+                        <div className="bg1" id="bg1" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                             <div className={"textView " + (this.state.bg1 ? "on" : "")}>
                                 <span>돌아온 창작뮤지컬의 전설!</span>
                                 <h2>뮤지컬 프랑켄슈타인</h2>
@@ -76,7 +65,7 @@ export default class main extends  Component{
                                     href="#">상세정보</a></p>
                             </div>
                         </div>
-                        <div className="bg2" onMouseEnter={() => onMouseEnter(1)} onMouseLeave={onMouseLeave}>
+                        <div className="bg2" id="bg2" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                             <div className={"textView " + (this.state.bg2 ? "on" : "")}>
                                 <span>4연에 빛나는 웰메이드 창작뮤지컬</span>
                                 <h2>뮤지컬 팬레터</h2>
@@ -85,7 +74,7 @@ export default class main extends  Component{
                                     href="#">상세정보</a></p>
                             </div>
                         </div>
-                        <div className="bg3" onMouseEnter={() => onMouseEnter(2)} onMouseLeave={onMouseLeave}>
+                        <div className="bg3" id="bg3" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                             <div className={"textView " + (this.state.bg3 ? "on" : "")}>
                                 <span>마음을 울리는 감성뮤지컬</span>
                                 <h2>뮤지컬 스토리오브마이라이프</h2>
@@ -94,7 +83,7 @@ export default class main extends  Component{
                                     href="#">상세정보</a></p>
                             </div>
                         </div>
-                        <div className="bg4" onMouseEnter={() => onMouseEnter(3)} onMouseLeave={onMouseLeave}>
+                        <div className="bg4" id="bg4" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                             <div className={"textView " + (this.state.bg4 ? "on" : "")}>
                                 <span>낭만의 르네상스가 만들어낸 골때리는 역작</span>
                                 <h2>뮤지컬 썸씽로튼</h2>
@@ -103,7 +92,7 @@ export default class main extends  Component{
                                     href="#">상세정보</a></p>
                             </div>
                         </div>
-                        <div className="bg5" onMouseEnter={() => onMouseEnter(4)} onMouseLeave={onMouseLeave}>
+                        <div className="bg5" id="bg5" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                             <div className={"textView " + (this.state.bg5 ? "on" : "")}>
                                 <span>드라마 발레의 정수</span>
                                 <h2>발레 오네긴</h2>

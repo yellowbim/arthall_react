@@ -12,8 +12,11 @@ public interface MainMap {
     // 공연 정보 조회
     List<MainDao> getPlayList(MainDao param);
 
+    // 파일리스트 갯수 조회
+    int getFileContextCnt(MainDao param);
+
     // 파일 리스트 조회
-    List<MainDao> getFileContext(MainDao param);
+    List<MainDao> getFileContextList(MainDao param);
 
     // 파일 업로드
     String setFileContext(MainDao param);

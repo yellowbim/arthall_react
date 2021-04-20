@@ -26,8 +26,16 @@
         FROM    play
     </select>
 
+    <!-- 파일 갯수 조회 -->
+    <select id="getFileContextCnt" parameterType="test.arthall.main.model.MainDao" resultType="int">
+        <!-- MainMap.getFileContextCnt -->
+        SELECT
+            COUNT(1) AS CNT
+        FROM fileupload
+    </select>
+
     <!-- 파일 조회 -->
-    <select id="getFileContext" parameterType="test.arthall.main.model.MainDao" resultType="test.arthall.main.model.MainDao">
+    <select id="getFileContextList" parameterType="test.arthall.main.model.MainDao" resultType="test.arthall.main.model.MainDao">
         SELECT
                 SEQ
                 , FILE_NAME
@@ -35,6 +43,7 @@
         <if test='seq != null and seq != ""'>
             WHERE SEQ = #{seq}
         </if>
+        LIMIT #{page}, #{rowSize}
     </select>
 
     <!-- 파일 insert -->

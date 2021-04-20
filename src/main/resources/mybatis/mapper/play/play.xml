@@ -10,20 +10,21 @@
         /* PlayMap.getPlayList */
         SELECT
                   NO
-                , hallName
-                , playType
-                , playNo
-                , playSubType
-                , playName
-                , frDttm
-                , toDttm
-                , starring
-                , content
-                , rating
-                , runningTime
-                , inquiry
-                , producer
-                , filename
+                , HALL_NAME
+                , PLAY_TYPE
+                , PLAY_NO
+                , PLAY_SUB_TYPE
+                , PLAY_NAME
+                , SUB_TITLE
+                , FR_DTTM
+                , TO_DTTM
+                , STARRING
+                , CONTENT
+                , RATING
+                , RUNNING_TIME
+                , INQUIRY
+                , PRODUCER
+                , FILENAME
         FROM    play
     </select>
 </mapper>

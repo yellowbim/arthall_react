@@ -14,8 +14,9 @@ public class MainSvc {
     private MainMap mainMap;
 
     // 파일 리스트 가져오기
-    public List<MainDao> getFileContext(MainDao param){
-        return mainMap.getFileContext(param);
+    public List<MainDao> getFileContextList(MainDao param){
+        param.setCnt(mainMap.getFileContextCnt(param));
+        return mainMap.getFileContextList(param);
     }
 
     // 파일 업로드하기
