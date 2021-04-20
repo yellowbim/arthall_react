@@ -24,6 +24,7 @@
                 , RUNNING_TIME
                 , INQUIRY
                 , PRODUCER
+                , BG_NUM
                 , FILENAME
         FROM    play
     </select>

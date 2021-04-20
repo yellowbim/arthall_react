@@ -27,4 +27,10 @@ public class PlayDao {
     private String artist;
     private int priceAdult;
 
+
+
+
+    // 백그라운드
+    private String bgNum;
+
 }

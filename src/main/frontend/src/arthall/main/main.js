@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import axios from "axios";
 import './../CSS/main.css';
 import './../CSS/reset.css';
 import './../CSS/topBtn.css';
@@ -13,8 +14,16 @@ export default class main extends  Component{
             bg2:false,
             bg3:false,
             bg4:false,
-            bg5:false
+            bg5:false,
+            playList:[]
         }
+    }
+
+    componentDidMount() {
+        axios.post("http://localhost:8083/main/").then((res) => {
+            console.log('공연 정보 조회 : ', res.data);
+            this.setState({playList:res.data});     // 공연 정보 생성
+        })
     }
 
 
@@ -56,51 +65,69 @@ export default class main extends  Component{
                         </div>
                     </div>
                     <div className="visual cf">
-                        <div className="bg1" id="bg1" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-                            <div className={"textView " + (this.state.bg1 ? "on" : "")}>
-                                <span>돌아온 창작뮤지컬의 전설!</span>
-                                <h2>뮤지컬 프랑켄슈타인</h2>
-                                <p>공연기간 : <span>2020.07.10~2020.09.13</span><br/>공연장소 : <span>충무아트센터 대극장</span></p>
-                                <p className="cf"><a className="ticketingBtn" >예매하기</a><a
-                                    href="#">상세정보</a></p>
-                            </div>
-                        </div>
-                        <div className="bg2" id="bg2" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-                            <div className={"textView " + (this.state.bg2 ? "on" : "")}>
-                                <span>4연에 빛나는 웰메이드 창작뮤지컬</span>
-                                <h2>뮤지컬 팬레터</h2>
-                                <p>공연기간 : <span>2020.07.05~2020.08.31</span><br/>공연장소 : <span>충무아트센터 중극장 블랙</span></p>
-                                <p className="cf"><a href="" className="ticketingBtn">예매하기</a><a
-                                    href="#">상세정보</a></p>
-                            </div>
-                        </div>
-                        <div className="bg3" id="bg3" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-                            <div className={"textView " + (this.state.bg3 ? "on" : "")}>
-                                <span>마음을 울리는 감성뮤지컬</span>
-                                <h2>뮤지컬 스토리오브마이라이프</h2>
-                                <p>공연기간 : <span>2020.09.01~2020.10.25</span><br/>공연장소 : <span>충무아트센터 중극장 블랙</span></p>
-                                <p className="cf"><a href="" className="ticketingBtn">예매하기</a><a
-                                    href="#">상세정보</a></p>
-                            </div>
-                        </div>
-                        <div className="bg4" id="bg4" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-                            <div className={"textView " + (this.state.bg4 ? "on" : "")}>
-                                <span>낭만의 르네상스가 만들어낸 골때리는 역작</span>
-                                <h2>뮤지컬 썸씽로튼</h2>
-                                <p>공연기간 : <span>2020.08.14~2020.10.01</span><br/>공연장소 : <span>충무아트센터 대극장</span></p>
-                                <p className="cf"><a href="" className="ticketingBtn">예매하기</a><a
-                                    href="#">상세정보</a></p>
-                            </div>
-                        </div>
-                        <div className="bg5" id="bg5" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-                            <div className={"textView " + (this.state.bg5 ? "on" : "")}>
-                                <span>드라마 발레의 정수</span>
-                                <h2>발레 오네긴</h2>
-                                <p>공연기간 : <span>2020.10.02~2020.11.01</span><br/>공연장소 : <span>충무아트센터 대극장</span></p>
-                                <p className="cf"><a href="" className="ticketingBtn">예매하기</a><a
-                                    href="#">상세정보</a></p>
-                            </div>
-                        </div>
+                        {
+                            this.state.playList.map(
+                                play =>
+                                    <div className={play.bgNum} id={play.bgNum} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                                        <div className={"textView " + (this.state[play.bgNum] ? "on" : "")}  key={play.playNo}>
+                                            <span>{play.subTitle}</span>
+                                            <h2>{play.playName}</h2>
+                                            <p>공연기간 : <span>{play.frDttm}~{play.toDttm}</span><br/>공연장소 : <span>{play.hallName}</span></p>
+                                            <p className="cf"><a className="ticketingBtn" >예매하기</a><a
+                                                href="#">상세정보</a></p>
+                                        </div>
+                                    </div>
+                            )
+                        }
+
+
+
+
+                        {/*<div className="bg1" id="bg1" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>*/}
+                        {/*    <div className={"textView " + (this.state.bg1 ? "on" : "")}>*/}
+                        {/*        <span>돌아온 창작뮤지컬의 전설!</span>*/}
+                        {/*        <h2>뮤지컬 프랑켄슈타인</h2>*/}
+                        {/*        <p>공연기간 : <span>2020.07.10~2020.09.13</span><br/>공연장소 : <span>충무아트센터 대극장</span></p>*/}
+                        {/*        <p className="cf"><a className="ticketingBtn" >예매하기</a><a*/}
+                        {/*            href="#">상세정보</a></p>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
+                        {/*<div className="bg2" id="bg2" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>*/}
+                        {/*    <div className={"textView " + (this.state.bg2 ? "on" : "")}>*/}
+                        {/*        <span>4연에 빛나는 웰메이드 창작뮤지컬</span>*/}
+                        {/*        <h2>뮤지컬 팬레터</h2>*/}
+                        {/*        <p>공연기간 : <span>2020.07.05~2020.08.31</span><br/>공연장소 : <span>충무아트센터 중극장 블랙</span></p>*/}
+                        {/*        <p className="cf"><a href="" className="ticketingBtn">예매하기</a><a*/}
+                        {/*            href="#">상세정보</a></p>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
+                        {/*<div className="bg3" id="bg3" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>*/}
+                        {/*    <div className={"textView " + (this.state.bg3 ? "on" : "")}>*/}
+                        {/*        <span>마음을 울리는 감성뮤지컬</span>*/}
+                        {/*        <h2>뮤지컬 스토리오브마이라이프</h2>*/}
+                        {/*        <p>공연기간 : <span>2020.09.01~2020.10.25</span><br/>공연장소 : <span>충무아트센터 중극장 블랙</span></p>*/}
+                        {/*        <p className="cf"><a href="" className="ticketingBtn">예매하기</a><a*/}
+                        {/*            href="#">상세정보</a></p>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
+                        {/*<div className="bg4" id="bg4" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>*/}
+                        {/*    <div className={"textView " + (this.state.bg4 ? "on" : "")}>*/}
+                        {/*        <span>낭만의 르네상스가 만들어낸 골때리는 역작</span>*/}
+                        {/*        <h2>뮤지컬 썸씽로튼</h2>*/}
+                        {/*        <p>공연기간 : <span>2020.08.14~2020.10.01</span><br/>공연장소 : <span>충무아트센터 대극장</span></p>*/}
+                        {/*        <p className="cf"><a href="" className="ticketingBtn">예매하기</a><a*/}
+                        {/*            href="#">상세정보</a></p>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
+                        {/*<div className="bg5" id="bg5" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>*/}
+                        {/*    <div className={"textView " + (this.state.bg5 ? "on" : "")}>*/}
+                        {/*        <span>드라마 발레의 정수</span>*/}
+                        {/*        <h2>발레 오네긴</h2>*/}
+                        {/*        <p>공연기간 : <span>2020.10.02~2020.11.01</span><br/>공연장소 : <span>충무아트센터 대극장</span></p>*/}
+                        {/*        <p className="cf"><a href="" className="ticketingBtn">예매하기</a><a*/}
+                        {/*            href="#">상세정보</a></p>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                     </div>
                 </section>
 
