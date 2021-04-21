@@ -6,7 +6,8 @@ import TOP from './../arthall/common/top'
 import FOOTER from './../arthall/common/footer'
 import MAIN from './../arthall/main/main';
 import LOGIN from '../arthall/mbr/login';
-import JOIN from '../arthall/mbr/join'
+import JOIN from '../arthall/mbr/join';
+import PLAY from '../arthall/play/play';
 
 
 export default function Routers(){
@@ -18,6 +19,7 @@ export default function Routers(){
                 <Route exact path="/"                             component={MAIN} />
                 <Route exact path="/member/loginForm"             component={LOGIN}/>
                 <Route exact path="/member/joinForm"              component={JOIN}/>
+                <Route exact path="/play/performList"             component={PLAY}/>
 
                 <FOOTER/>
             </Router>

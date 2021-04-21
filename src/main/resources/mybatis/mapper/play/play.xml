@@ -25,7 +25,7 @@
                 , INQUIRY
                 , PRODUCER
                 , BG_NUM
-                , FILENAME
+                , FILE_NAME
         FROM    play
     </select>
 </mapper>

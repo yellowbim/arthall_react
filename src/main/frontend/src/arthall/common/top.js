@@ -80,7 +80,7 @@ export default class top extends Component {
                                         </ul>
                                     </li>
                                     <li className="hover">
-                                        <a href="/play/performList.do"><span>공연·전시·행사</span></a>
+                                        <a href="/play/performList"><span>공연·전시·행사</span></a>
                                         <ul>
                                             <li><a href="#">캘린더</a></li>
                                             <li><a href="/play/performList.do">공연정보</a></li>

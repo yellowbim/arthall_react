@@ -21,7 +21,7 @@ public class PlayDao {
     private String runningTime;
     private String inquiry;
     private String producer;
-    private String filename;
+    private String fileName;
 
     // 전시
     private String artist;

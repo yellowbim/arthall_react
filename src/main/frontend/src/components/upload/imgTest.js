@@ -7,6 +7,7 @@ export default class ImgTest extends Component {
         super(props);
         this.state = {
             file:"",
+            totalCnt:0,
             rowSize:3,      // 3이 default
             page:0,         // 1페이지가 default
             fileList:[]
@@ -27,7 +28,12 @@ export default class ImgTest extends Component {
         for(let pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]);
         }
-
+        // 파일 전체 개수
+        axios.post("http://localhost:8083/main/fileCnt",formData).then((res) => {
+            console.log('파일 전체 개수',res.data)
+            this.setState({totalCnt:res.data})
+        });
+        // 파일 목록
         axios.post("http://localhost:8083/main/fileList",formData).then((res) => {
             console.log('처음 조회 결과값',res);
             this.setState({fileList:res.data})
@@ -75,9 +81,6 @@ export default class ImgTest extends Component {
 
         // 이미지, 동영상 파일 구분
         function imgVideo(fileName){
-            console.log('이미지 구분', fileName)
-            console.log(fileName.indexOf('.'))
-            console.log(fileName.substr(fileName.indexOf('.')+1))
             const gubun = fileName.substr(fileName.indexOf('.')+1);
             if (gubun == "mp4"){
                 return <video src={require('./../imgUpload/'+fileName)} style={{width:"80px", height:"80px"}}/>;
@@ -85,13 +88,6 @@ export default class ImgTest extends Component {
                 return <img src={require('./../imgUpload/'+fileName)} style={{width:"80px", height:"80px"}} />;
             }
         }
-
-        const onmouseenter = e => {
-            console.log('div name 왜 안나오냐',e.target);
-            console.log('div들어온거',e.target.id);
-            console.log('div들어온거',e.target.name);
-        }
-
 
         return(
             <>
@@ -129,12 +125,8 @@ export default class ImgTest extends Component {
                             }
                             </tbody>
                         </table>
-                        <Paging totalCnt={this.state.fileList.length} page={this.state.page} rowSize={this.state.rowSize} getRowSize={getRowSize} getPage={getPage}/>
+                        <Paging totalCnt={this.state.totalCnt} page={this.state.page} rowSize={this.state.rowSize} getRowSize={getRowSize} getPage={getPage}/>
                     </div>
-                </div>
-
-                <div id="test" name="test" onMouseEnter={onmouseenter}>
-                    <span>테스트 div</span>
                 </div>
             </>
         )
