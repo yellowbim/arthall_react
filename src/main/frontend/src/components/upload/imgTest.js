@@ -166,7 +166,7 @@ export default class ImgTest extends Component {
 
                         <Paging totalCnt={this.state.totalCnt} page={this.state.page} rowSize={this.state.rowSize} getRowSize={getRowSize} getPage={getPage}/>
                     </div>
-                    {/*<video src={require('./../imgUpload/1619078998738KakaoTalk_20210420_110212053.556aabe6.mp4')} style={{width:"80px", height:"80px"}} onClick={bigImg}/>;*/}
+                    <video src={require('./../imgUpload/1619081270029KakaoTalk_20210420_110212053.mp4')} style={{width:"80px", height:"80px"}} autoPlay muted/>
                 </div>
             </>
         )
