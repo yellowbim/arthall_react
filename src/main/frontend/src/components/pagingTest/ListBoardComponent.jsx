@@ -27,9 +27,9 @@ class ListBoardComponent extends Component {
         });
     }
 
-    goDetailContents = (no) => {
+    goDetailContents = (no, title) => {
         console.log('List  no',no);
-        this.props.history.push('/Detail/'+no);      // history.match를 사용하는 방식
+        this.props.history.push('/Detail/'+no+'/'+title);      // history.match를 사용하는 방식
         // this.props.history.push({pathname:'/Detail',state: {no:no}});   // location.history.state를 사용하는 방식
         console.log('List의 history',this.props.history)
     }
@@ -69,7 +69,7 @@ class ListBoardComponent extends Component {
                                             <td> {board.updDate} </td>
                                             <td> {board.likes} </td>
                                             <td> {board.counts} </td>
-                                            <td><button className="test" onClick={() => this.goDetailContents(board.no)}>상세보기</button></td>
+                                            <td><button className="test" onClick={() => this.goDetailContents(board.no, board.title)}>상세보기</button></td>
                                             {/*<td>*/}
                                             {/*    <Link to={"/Detail/" + board.no}>*/}
                                             {/*        <button className="test">상세보기</button>*/}

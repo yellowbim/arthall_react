@@ -11,7 +11,7 @@ export default function RoutersTest() {
             {/*<Route path="/"                 component={IndexMain}/>*/}
             <Route path="/List"             component={ListBoardComponent}/>
             <Route path="/Link"             component={LinkTest}/>
-            <Route path="/Detail/:no"       component={DetailContentsComponent}/>   {/*이건 Detail/:no 로 key 값을 맵핑시켜서 넘겨줌 */}
+            <Route path="/Detail/:no/:title"       component={DetailContentsComponent}/>   {/*이건 Detail/:no 로 key 값을 맵핑시켜서 넘겨줌 */}
         </Router>
     )
 }

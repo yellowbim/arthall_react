@@ -13,14 +13,13 @@ public class MainSvc {
     @Autowired
     private MainMap mainMap;
 
-    // 전체 개수
-    public int getFileContextCnt(MainDao param){
-        return mainMap.getFileContextCnt(param);
-    }
 
     // 파일 리스트 가져오기
     public List<MainDao> getFileContextList(MainDao param){
-        // 전체 갯수를 받아와야함
+        // 파일 전체 개수
+        param.setPage((param.getPage()-1)*param.getRowSize());
+
+        // 파일 조회 리턴
         return mainMap.getFileContextList(param);
     }
 

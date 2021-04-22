@@ -1,4 +1,4 @@
-/*global kakao*/                                        // 카카오를 글로벌로 선언해놔야 에러가 안남
+/*global kakao*/                                                                                // 카카오를 글로벌로 선언해놔야 에러가 안남
 import React, {Component} from "react";
 import styled from 'styled-components'
 

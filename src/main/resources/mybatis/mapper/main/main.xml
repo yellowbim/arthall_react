@@ -5,7 +5,7 @@
 
 <mapper namespace="test.arthall.main.map.MainMap">
 
-    <!-- 파일 갯수 조회 -->
+    <!-- 파일 개수 조회 -->
     <select id="getFileContextCnt" parameterType="test.arthall.main.model.MainDao" resultType="int">
         <!-- MainMap.getFileContextCnt -->
         SELECT
@@ -16,7 +16,8 @@
     <!-- 파일 조회 -->
     <select id="getFileContextList" parameterType="test.arthall.main.model.MainDao" resultType="test.arthall.main.model.MainDao">
         SELECT
-                SEQ
+                (SELECT COUNT(*) FROM fileupload)  AS TOTAL_CNT
+                , SEQ
                 , FILE_NAME
         FROM fileupload
         <if test='seq != null and seq != ""'>

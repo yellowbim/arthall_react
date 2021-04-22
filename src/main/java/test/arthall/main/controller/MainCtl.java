@@ -75,10 +75,10 @@ public class MainCtl {
     }
 
 
-    @RequestMapping("/fileCnt")
-    public int getFileContextCnt(MainDao param) throws Exception {
-        return mainSvc.getFileContextCnt(param);
-    }
+//    @RequestMapping("/fileCnt")
+//    public int getFileContextCnt(MainDao param) throws Exception {
+//        return mainSvc.getFileContextCnt(param);
+//    }
 
 
     /***

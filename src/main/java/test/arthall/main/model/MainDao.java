@@ -33,6 +33,7 @@ public class MainDao {
 
     private String fileName;
 
+    private int totalCnt;
     private int page = 0;
     private int rowSize = 3;
     private int cnt;

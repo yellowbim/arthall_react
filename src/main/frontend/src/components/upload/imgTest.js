@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from "axios";
-import Paging from './../page/paging';
+import Paging from './../page/paging2';
+import Modal from './../modal/modal';
 
 export default class ImgTest extends Component {
     constructor(props) {
@@ -9,11 +10,14 @@ export default class ImgTest extends Component {
             file:"",
             totalCnt:0,
             rowSize:3,      // 3이 default
-            page:0,         // 1페이지가 default
-            fileList:[]
+            page:1,         // 1페이지가 default
+            fileList:[],
+            modal:false,
+            modalTag:''
         }
     }
 
+    // 페이지가 처음 열리면 실행
     componentDidMount() {
         this.getImgList()
     }
@@ -28,27 +32,29 @@ export default class ImgTest extends Component {
         for(let pair of formData.entries()) {
             console.log(pair[0]+ ', '+ pair[1]);
         }
-        // 파일 전체 개수
-        axios.post("http://localhost:8083/main/fileCnt",formData).then((res) => {
-            console.log('파일 전체 개수',res.data)
-            this.setState({totalCnt:res.data})
-        });
+
         // 파일 목록
-        axios.post("http://localhost:8083/main/fileList",formData).then((res) => {
-            console.log('처음 조회 결과값',res);
-            this.setState({fileList:res.data})
+        this.props.history.push('/imgTest/'+this.state.page+'/'+this.state.rowSize)
+        console.log(this.props.match)
+        axios.get("http://localhost:8083/main/fileList?page="+this.state.page+'&rowSize='+this.state.rowSize).then((res) => {
+            console.log('파일 전체 개수',res.data)
+            if (res.data.length != 0) {
+                this.setState({
+                    fileList: res.data,
+                    totalCnt: res.data[0].totalCnt
+                })
+            }
         });
     }
 
     render(){
-
 
         // 파일  첨부
         const onChange1 = (e) => {
             this.state.file = e.target.files[0]
         }
 
-        // 파일 저장
+        // 파일  저장
         const onClick = () => {
             const formData = new FormData();
             formData.append('file', this.state.file);
@@ -67,15 +73,21 @@ export default class ImgTest extends Component {
 
         // rowSize 값 가져오기
         const getRowSize = (data) => {
-            // setState는 비동기 함수여서 랜더링이 되기 전에 불러오면 기존 정보를 가져옴.
-            // ==> 콜백 함수를 실행
-            this.setState({rowSize:data}, () => {return this.getImgList()});
+            console.log('변경된 페이지값',data)
+            if (Math.floor(this.state.totalCnt/data)+1 < this.state.page){
+                // 마지막 페이지에서 보여줄 갯수를 변경하면
+                // 변경된 마지막 페이지로 값 전달
+                this.setState({rowSize:data, page:Math.floor(this.state.totalCnt/data)+1}, () => {return this.getImgList()});
+            } else {
+                this.setState({rowSize:data}, () => {return this.getImgList()});
+            }
+
         }
 
         // page 값 가져오기
         const getPage = (data) => {
-            console.log('페이지 값 : ',data);
-            this.setState({page:(data*this.state.rowSize)},() =>{return this.getImgList()});
+            console.log('자식태그에서 받은 page', data)
+            this.setState({page:data},() =>{return this.getImgList()});
 
         }
 
@@ -83,10 +95,33 @@ export default class ImgTest extends Component {
         function imgVideo(fileName){
             const gubun = fileName.substr(fileName.indexOf('.')+1);
             if (gubun == "mp4"){
-                return <video src={require('./../imgUpload/'+fileName)} style={{width:"80px", height:"80px"}}/>;
+                return <video src={require('./../imgUpload/'+fileName)} style={{width:"80px", height:"80px"}} onClick={bigImg}/>;
             } else {
-                return <img src={require('./../imgUpload/'+fileName)} style={{width:"80px", height:"80px"}} />;
+                return <img src={require('./../imgUpload/'+fileName)} style={{width:"80px", height:"80px"}} onClick={bigImg} />;
             }
+        }
+
+        // 레이어 팝업으로 이미지 크게보기(볼 이미지, 크기 등은 여기서 설정)
+        const bigImg = (e) => {
+            console.log(e.target.tag);
+            const gubun = e.target.src.substr(e.target.src.indexOf('.')+1);
+            if (gubun === 'mp4'){
+                this.setState({
+                    modal:true,
+                    modalTag:<video src={e.target.src} style={{width:"400px", height:"500px"}}/>
+                })
+            } else {
+                this.setState({
+                    modal:true,
+                    modalTag:<img src={e.target.src} style={{width:"400px", height:"500px"}} alt={'이미지 크게보기'}/>
+                })
+            }
+        }
+
+        // 이미지 크게보기 닫기
+        const onmouseleave = (e) => {
+            console.log(e)
+            this.setState({modal:false})
         }
 
         return(
@@ -120,13 +155,18 @@ export default class ImgTest extends Component {
                                             <td> {fileList.seq} </td>
                                             <td > {fileList.fileName} </td>
                                             <td> {imgVideo(fileList.fileName)}</td>
+                                            {
+                                                this.state.modal && <Modal tag={this.state.modalTag} modalClose={onmouseleave}/>
+                                            }
                                         </tr>
                                 )
                             }
                             </tbody>
                         </table>
+
                         <Paging totalCnt={this.state.totalCnt} page={this.state.page} rowSize={this.state.rowSize} getRowSize={getRowSize} getPage={getPage}/>
                     </div>
+                    {/*<video src={require('./../imgUpload/1619078998738KakaoTalk_20210420_110212053.556aabe6.mp4')} style={{width:"80px", height:"80px"}} onClick={bigImg}/>;*/}
                 </div>
             </>
         )
