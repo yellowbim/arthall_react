@@ -3,7 +3,7 @@
 .sub__tit{
     position: relative;
     height: 350px;
-    background:url(../../img/topBg/subtest.jpg);
+    background:url(../../../img/topBg/subtest.jpg);
 }
 .sub__tit h2{
     position: absolute;

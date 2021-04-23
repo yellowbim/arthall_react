@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
-import PAGINGTEST from './PagingTest';
-import './arthall/CSS/header.css';
+import INDEXMAIN from './arthall/indexMain';
+import './arthall/common/CSS/header.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    {/*<INDEXMAIN/>*/}
-    <PAGINGTEST/>
+    <INDEXMAIN/>
+    {/*<PAGINGTEST/>*/}
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import './../CSS/join.css';
+import './../common/CSS/join.css';
 import axios from "axios";
 
 // 우편번호 modal

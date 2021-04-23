@@ -1,9 +1,10 @@
 package test.arthall.play.model;
 
 import lombok.Data;
+import test.arthall.common.commonDao;
 
 @Data
-public class PlayDao {
+public class PlayDao extends commonDao {
 
     // 공연
     private String no;
@@ -26,7 +27,6 @@ public class PlayDao {
     // 전시
     private String artist;
     private int priceAdult;
-
 
 
 

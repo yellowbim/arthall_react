@@ -75,12 +75,6 @@ public class MainCtl {
     }
 
 
-//    @RequestMapping("/fileCnt")
-//    public int getFileContextCnt(MainDao param) throws Exception {
-//        return mainSvc.getFileContextCnt(param);
-//    }
-
-
     /***
      * 파일 조회
      */

@@ -277,16 +277,16 @@ main .icons{padding: 50px 0;}
 }
 
 /*각 슬라이드 이미지적용*/
-.slide1{background-image: url(../../img/poster/pos1.jpg); background-repeat: no-repeat;  background-position-x: center;}
-.slide2{background-image: url(../../img/poster/pos2.jpg); background-repeat: no-repeat;  background-position-x: center;}
-.slide3{background-image: url(../../img/poster/pos3.jpg); background-repeat: no-repeat;  background-position-x: center;}
-.slide4{background-image: url(../../img/poster/pos4.jpg); background-repeat: no-repeat;  background-position-x: center;}
-.slide5{background-image: url(../../img/poster/pos5.jpg); background-repeat: no-repeat;  background-position-x: center;}
-.slide6{background-image: url(../../img/poster/pos6.jpg); background-repeat: no-repeat;  background-position-x: center;}
-.slide7{background-image: url(../../img/poster/pos7.jpg); background-repeat: no-repeat;  background-position-x: center;}
-.slide8{background-image: url(../../img/poster/pos8.jpg); background-repeat: no-repeat;  background-position-x: center;}
-.slide9{background-image: url(../../img/poster/pos9.jpg); background-repeat: no-repeat;  background-position-x: center;}
-.slide10{background-image: url(../../img/poster/pos10.jpg); background-repeat: no-repeat;  background-position-x: center;}
+.slide1{background-image: url(../../../img/poster/pos1.jpg); background-repeat: no-repeat;  background-position-x: center;}
+.slide2{background-image: url(../../../img/poster/pos2.jpg); background-repeat: no-repeat;  background-position-x: center;}
+.slide3{background-image: url(../../../img/poster/pos3.jpg); background-repeat: no-repeat;  background-position-x: center;}
+.slide4{background-image: url(../../../img/poster/pos4.jpg); background-repeat: no-repeat;  background-position-x: center;}
+.slide5{background-image: url(../../../img/poster/pos5.jpg); background-repeat: no-repeat;  background-position-x: center;}
+.slide6{background-image: url(../../../img/poster/pos6.jpg); background-repeat: no-repeat;  background-position-x: center;}
+.slide7{background-image: url(../../../img/poster/pos7.jpg); background-repeat: no-repeat;  background-position-x: center;}
+.slide8{background-image: url(../../../img/poster/pos8.jpg); background-repeat: no-repeat;  background-position-x: center;}
+.slide9{background-image: url(../../../img/poster/pos9.jpg); background-repeat: no-repeat;  background-position-x: center;}
+.slide10{background-image: url(../../../img/poster/pos10.jpg); background-repeat: no-repeat;  background-position-x: center;}
 /*각 슬라이드 이미지적용 끝*/
 
 

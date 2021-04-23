@@ -19,6 +19,9 @@ public class PlayCtl {
     @Autowired
     private PlaySvc playSvc;
 
+    /***
+     * 공연 목록 조회
+     */
     @RequestMapping("/playList")
     public List<PlayDao> getPlayList(PlayDao param) throws Exception {
         return playSvc.getPlayList(param);

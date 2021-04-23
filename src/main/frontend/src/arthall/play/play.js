@@ -1,25 +1,83 @@
 import React, {Component} from "react";
-import './../CSS/perf-exhi_info.css';
-import axios from 'axios';
+import './../common/CSS/perf-exhi_info.css';
 
 export default class Play extends Component{
     constructor(props) {
         super(props);
         this.state ={
+            search:'',
+            totalCnt:0,
+            page:1,         // 페이지
+            rowSize:12,     // 보여줄 총 개수
             playList:[]
         }
     }
+
     componentDidMount() {
-        axios.post("http://localhost:8083/play/playList").then((res) => {
-            console.log('공연 목록',res.data);
-            this.setState({
-                playList:res.data
-            })
-        })
+        this.axiosSearchPlay('')
+    }
+
+    // data : 구분자 : ,    타입 : String
+    axiosSearchPlay(data) {
+        const formData = new FormData;
+        const test = {name1:"이정준", name2:"김용선"};
+
+        console.log(Object.keys(test));
+
+        // for (let i = 0; i < data.length; i++){
+        //     formData.append()
+        // }
+
+
+        // formData
+        // axios.post("http://localhost:8083/play/playList", formData).then((res) => {
+        //     console.log('검색 공연 목록',res.data);
+        //     this.setState({
+        //         playList:res.data,
+        //         totalCnt:res.data[0].totalCnt
+        //     })
+        // })
     }
 
 
     render() {
+        // 키보드 클릭 시 값 변경 이벤트 & 엔터 클릭 시 검색 이벤트
+        const changeSearch = (e) => {
+
+            // 엔터 입력 시 검색
+            if (e.key === 'Enter'){
+                this.axiosSearchPlay(e.target.value)
+                // 부모 이벤트 발생 중지(페이지 새로고침)
+                e.preventDefault()
+            }
+
+            // 값이 변했을때 state에 변한 값을 넣어줌
+            this.setState({
+                search:e.target.value
+            })
+        }
+
+
+        // 검색 이벤트
+        const clickSearchPlay = (e) => {
+            if (this.state.search == ''){
+                alert('공연명을 입력해주세요.');
+                return;
+            }
+            this.axiosSearchPlay(this.state.search)
+            // 부모 이벤트 발생 중지(페이지 새로고침)
+            e.preventDefault()
+        }
+
+        const moveTop = (e) => {
+            e.preventDefault()
+            window.scrollTo({
+                behavior:'smooth',
+                top:0
+            })
+        }
+
+
         return(
             <>
                 <div id="wrap">
@@ -40,9 +98,9 @@ export default class Play extends Component{
                         </aside>
                         <main id="main">
                             <div className="main__content">
-                                <form className="result_search" action="action_page.php">
-                                    <input type="search" name="search" className="t_box" placeholder=" 공연명을 입력해주세요"/>
-                                        <button type="submit" className="submit"><i className="fa fa-search"/></button>
+                                <form className="result_search">
+                                    <input type="search" name="search" className="t_box" placeholder=" 공연명을 입력해주세요" value={this.state.search} onChange={changeSearch} onKeyPress={changeSearch}/>
+                                        <button type="button" className="submit" onClick={clickSearchPlay}><i className="fa fa-search"/></button>
                                 </form>
                                 <div className="perf_list">
                                     <div className="order_list">
@@ -71,7 +129,7 @@ export default class Play extends Component{
                                                                 <span>{play.subTitle}</span>
                                                             </div>
                                                             <div className="perf_view_wrap_mh">
-                                                                <a href="#" className="ticketingBtn" onClick="">예매하기</a>
+                                                                <a href="#" className="ticketingBtn" >예매하기</a>
                                                                 <a href="performance01.html">상세정보</a>
                                                             </div>
                                                         </div>
@@ -81,17 +139,22 @@ export default class Play extends Component{
                                     </ul>
                                 </div>
                                 <div className="pagination">
-                                    <a href="#" className="firstpage pbtn"><img src={require('./../../img/btn_firstpage.png')} alt="첫 페이지로 이동"/></a>
-                                    <a href="#"><span className="pagenum currentpage">1</span></a>
-                                    <a href="#"><span className="pagenum">2</span></a>
-                                    <a href="#"><span className="pagenum">3</span></a>
-                                    <a href="#"><span className="pagenum">4</span></a>
-                                    <a href="#"><span className="pagenum">5</span></a>
-                                    <a href="#" className="lastpage pbtn"><img src={require('./../../img/btn_lastpage.png')} alt="마지막 페이지로 이동"/></a>
+                                    {/*<Paging totalPage={this.state.totalCnt}/>*/}
+
+
+
+
+                                    {/*<a href="#" className="firstpage pbtn"><img src={require('./../../img/btn_firstpage.png')} alt="첫 페이지로 이동"/></a>*/}
+                                    {/*<a href="#"><span className="pagenum currentpage">1</span></a>*/}
+                                    {/*<a href="#"><span className="pagenum">2</span></a>*/}
+                                    {/*<a href="#"><span className="pagenum">3</span></a>*/}
+                                    {/*<a href="#"><span className="pagenum">4</span></a>*/}
+                                    {/*<a href="#"><span className="pagenum">5</span></a>*/}
+                                    {/*<a href="#" className="lastpage pbtn"><img src={require('./../../img/btn_lastpage.png')} alt="마지막 페이지로 이동"/></a>*/}
                                 </div>
                             </div>
                         </main>
-                        <a href="" className="topBtn">TOP</a>
+                        {/*<a href="" className="topBtn" onClick={moveTop}>TOP</a>*/}
                     </div>
                 </div>
             </>

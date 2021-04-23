@@ -6,7 +6,7 @@
     position: relative;
     height: 350px;
     /*background: #ccc;*/
-    background-image: url(../../img/tit_bg.jpg);
+    background-image: url(../../../img/tit_bg.jpg);
     background-position-x: 0;
     background-position-y: -250px;
     background-size: cover;
@@ -41,8 +41,18 @@
     height: auto;
     margin: 0 auto;
 }
-.sub__container .container__subClass,
-.sub__container main {float: left;}
+.sub__container .container__subClass{
+    /*position: absolute;*/
+    float: left;
+    width: 20%;
+    min-height: 100%;
+}
+.sub__container main {
+    /*position: absolute;*/
+    float: right;
+    width: 80%;
+    min-height: 100%;
+}
 
 .sub__container .container__subClass{
     height: 100%;
@@ -152,6 +162,7 @@ main .main__content{
 .perf_view{
     width: 100%;
     height: auto;
+    text-align: center;
 }
 .perf_view ul{
     display: inline-block;

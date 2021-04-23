@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import axios from 'axios';
-import './../CSS/login.css';
-import './../CSS/reset.css';
+import './../common/CSS/login.css';
+import './../common/CSS/reset.css';
 
 
 export default class login extends Component{
@@ -28,13 +28,12 @@ export default class login extends Component{
         this.memberChk()
             .then((response) => {
                 console.log('로그인 결과값',response.data);
-                if (response.data.code == '1111'){
+                if (response.data.code === '1111'){
                     alert('아이디와 비밀번호를 확인해주세요');
                 } else {
                     const qs = require("qs");
-                    window.sessionStorage.setItem("mbrId",this.state.mbrId);         // session 에 mbrinfo 저장
+                    window.sessionStorage.setItem("mbrId",this.state.mbrId);         // session 에 mbrinfo 저장, 일회성
                     document.location.href = "/";
-                    // this.props.history.push("/");
                 }
             })
     }
@@ -127,7 +126,7 @@ export default class login extends Component{
                             </section>
                         </div>
                     </main>
-                    <a href="javascript:;" className="topBtn">TOP</a>
+                    <a className="topBtn">TOP</a>
                 </div>
             </div>
         )

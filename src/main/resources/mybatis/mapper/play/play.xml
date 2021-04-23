@@ -9,7 +9,11 @@
     <select id="getPlayList" parameterType="test.arthall.play.model.PlayDao" resultType="test.arthall.play.model.PlayDao">
         /* PlayMap.getPlayList */
         SELECT
-                  NO
+                (
+                 SELECT
+                        COUNT(1)
+                 FROM play )  AS TOTAL_CNT
+                , NO
                 , HALL_NAME
                 , PLAY_TYPE
                 , PLAY_NO
@@ -27,5 +31,8 @@
                 , BG_NUM
                 , FILE_NAME
         FROM    play
+        <if test='playName != null and playName != ""'>
+            WHERE PLAY_NAME LIKE CONCAT('%', #{playName}, '%')
+        </if>
     </select>
 </mapper>

@@ -36,7 +36,7 @@ export default class MyModal extends Component{
                 }
                 fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
 
-                if (data.userSelectedType == "J") {   // 지번주소
+                if (data.userSelectedType === "J") {   // 지번주소
                     jibunAddress = data.jibunAddress + (extraAddress !== "" ? ` (${extraAddress})` : "");
                 } else {
                     jibunAddress = data.autoJibunAddress + (extraAddress !== "" ? ` (${extraAddress})` : "");

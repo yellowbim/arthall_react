@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import './../CSS/reset.css';
-import './../CSS/header.css';
+import './CSS/reset.css';
+import './CSS/header.css';
 import {Link} from "react-router-dom"; // 페이지 이동을 위한 Link, Link는 html에서 a 태그로 보여짐
 import img from '../../img/logo/logo.png';
 import LoginSession from './LoginSession';
