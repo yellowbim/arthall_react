@@ -10,30 +10,20 @@ const Paging2 = ({totalCnt, page, rowSize, getPage ,getRowSize}) =>{
     if (totalCnt === 0){
         return (<><div style={{fontSize:"large",fontWeight:"bold",textAlign:"center"}}>보여줄 목록이 없습니다.</div></>)
     } else {
-        console.log('전체페이지', totalCnt)
-        console.log('페이지', page)
-        console.log('열수', rowSize)
         const array = []
 
         const onClick = (e) => {
-            console.log('타겟', e.target.value)
-            console.log('페이지 개수', e.target.value)
             getPage(e.target.value);
         }
 
         const onChange = (e) => {
-            console.log('rowSize', e.target.value)
-            console.log('마지막 페이지', array)
             getRowSize(e.target.value)
 
         }
 
-        for (let i = 0; i < Math.floor(totalCnt / rowSize) + 1; i++) {
+        for (let i = 0; i < Math.floor((totalCnt - 1 )/ rowSize) + 1; i++) {
             array[i] = i + 1
         }
-
-
-        console.log('array', array)
         return (
             <>
                 <div align="center">
@@ -42,7 +32,7 @@ const Paging2 = ({totalCnt, page, rowSize, getPage ,getRowSize}) =>{
                     {
                         array.map(
                             page =>
-                                <input type="button" value={page} onClick={onClick}/>
+                                <input type="button" value={page} onClick={onClick} key={page}/>
                         )
                     }
                     <input type="button" value=">"/>

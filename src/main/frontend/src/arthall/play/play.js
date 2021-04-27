@@ -1,5 +1,7 @@
 import React, {Component} from "react";
+import axios from "axios";
 import './../common/CSS/perf-exhi_info.css';
+import Ticketing from "../reserv/ticketing";
 
 export default class Play extends Component{
     constructor(props) {
@@ -9,7 +11,8 @@ export default class Play extends Component{
             totalCnt:0,
             page:1,         // 페이지
             rowSize:12,     // 보여줄 총 개수
-            playList:[]
+            playList:[],
+            modal:false
         }
     }
 
@@ -20,23 +23,25 @@ export default class Play extends Component{
     // data : 구분자 : ,    타입 : String
     axiosSearchPlay(data) {
         const formData = new FormData;
-        const test = {name1:"이정준", name2:"김용선"};
+        formData.append('playName',data);
 
-        console.log(Object.keys(test));
-
-        // for (let i = 0; i < data.length; i++){
-        //     formData.append()
+        // 여기서는 전송할 데이터가 하나이기 때문에 그냐야 전송하면됨
+        // for (let i = 0; i < Object.keys(data).length; i++ ){
+        //     formData.append(Object.keys(data)[i], Object.values(data)[i]);
         // }
 
+        axios.post("http://localhost:8083/play/playList", formData).then((res) => {
+            console.log('검색 공연 목록',res.data);
+            this.setState({
+                playList:res.data,
+                totalCnt:res.data[0].totalCnt
+            })
+        })
+    }
 
-        // formData
-        // axios.post("http://localhost:8083/play/playList", formData).then((res) => {
-        //     console.log('검색 공연 목록',res.data);
-        //     this.setState({
-        //         playList:res.data,
-        //         totalCnt:res.data[0].totalCnt
-        //     })
-        // })
+    OpenReserv(data){
+        console.log(data);
+        this.setState({modal:true})
     }
 
 
@@ -60,7 +65,7 @@ export default class Play extends Component{
 
         // 검색 이벤트
         const clickSearchPlay = (e) => {
-            if (this.state.search == ''){
+            if (this.state.search === ''){
                 alert('공연명을 입력해주세요.');
                 return;
             }
@@ -76,6 +81,10 @@ export default class Play extends Component{
                 top:0
             })
         }
+
+        // 예매하기 팝업 열기
+        // function
+
 
 
         return(
@@ -116,11 +125,10 @@ export default class Play extends Component{
                                         {
                                             this.state.playList.map(
                                                 play =>
-                                                    <li>
+                                                    <li key={play.playNo}>
                                                         <div className="perf_view_wrap">
                                                             {/*<img src={require('./../../img/per/'+play.fileName)} alt="perf_img"/>*/}
                                                             <div className="perf_view_wrap_des">
-                                                                <input type="hidden" value="${play.no}"/>
                                                                 <h3>{play.playName}</h3>
                                                                 <h4>장소 : {play.hallName}</h4>
                                                                 <span>
@@ -129,7 +137,10 @@ export default class Play extends Component{
                                                                 <span>{play.subTitle}</span>
                                                             </div>
                                                             <div className="perf_view_wrap_mh">
-                                                                <a href="#" className="ticketingBtn" >예매하기</a>
+                                                                {
+                                                                    this.state.modal && <Ticketing/>
+                                                                }
+                                                                <a type="button" className="ticketingBtn" onClick={() => this.OpenReserv(play.playNo)}>예매하기</a>
                                                                 <a href="performance01.html">상세정보</a>
                                                             </div>
                                                         </div>

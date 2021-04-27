@@ -1,6 +1,5 @@
 
 
-
 /*상단 타이틀*/
 .sub__tit{
     position: relative;
@@ -27,7 +26,7 @@
     height: auto;
     margin: 0 auto;
 }
-/*html .subClass__tit에 fontawesome을 이용해 적절한 아이콘을 넣어주세요. 
+/*html .subClass__tit에 fontawesome을 이용해 적절한 아이콘을 넣어주세요.
 
 <h3 class="subClass__tit">
     <i class="fas fa-guitar"></i><br>공연&middot;전시&middot;행사

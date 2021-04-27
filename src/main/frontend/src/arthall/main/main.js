@@ -3,6 +3,7 @@ import axios from "axios";
 import './../common/CSS/main.css';
 import './../common/CSS/reset.css';
 import './../common/CSS/topBtn.css';
+import {Link} from "react-router-dom";
 
 
 export default class main extends  Component{
@@ -73,7 +74,7 @@ export default class main extends  Component{
                                             <span>{play.subTitle}</span>
                                             <h2>{play.playName}</h2>
                                             <p>공연기간 : <span>{play.frDttm}~{play.toDttm}</span><br/>공연장소 : <span>{play.hallName}</span></p>
-                                            <p className="cf"><a className="ticketingBtn" >예매하기</a><a href="#">상세정보</a></p>
+                                            <p className="cf"><a className="ticketingBtn" >예매하기</a><Link to="/reserv/ticketing">상세정보</Link></p>
                                         </div>
                                     </div>
                             )

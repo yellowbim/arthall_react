@@ -23,7 +23,9 @@
         <if test='seq != null and seq != ""'>
             WHERE SEQ = #{seq}
         </if>
-        LIMIT #{page}, #{rowSize}
+        <if test='page != null and page != "" and rowSize != null and rowSize != ""'>
+            LIMIT #{page}, #{rowSize}
+        </if>
     </select>
 
     <!-- 파일 insert -->

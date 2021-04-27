@@ -1,6 +1,7 @@
-/*global kakao*/                                                                                // 카카오를 글로벌로 선언해놔야 에러가 안남
+/*global kakao*/                                                                                                                                                                // 카카오를 글로벌로 선언해놔야 에러가 안남
 import React, {Component} from "react";
 import styled from 'styled-components'
+import * as config from './../../config';
 
 export default class KaKaoMapApi extends Component {
     componentDidMount() {
@@ -8,7 +9,7 @@ export default class KaKaoMapApi extends Component {
         const script = document.createElement("script");
         script.async = true;
         script.src =
-            "https://dapi.kakao.com/v2/maps/sdk.js?appkey=e1e6be6ebb16e1bf2110c3fcec3c46cc&libraries=services";
+            "https://dapi.kakao.com/v2/maps/sdk.js?appkey="+config.KAKAO_DAUM_MAP_JS_KEY;   // config.js 파일을 사용하여 로그인페이지 구현
         document.head.appendChild(script);
 
         // 지도 정보 불러오기

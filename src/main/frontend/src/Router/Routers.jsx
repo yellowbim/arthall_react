@@ -9,6 +9,7 @@ import LOGIN from '../arthall/mbr/login';
 import JOIN from '../arthall/mbr/join';
 import MyPage from '../arthall/mbr/mypage';
 import PLAY from '../arthall/play/play';
+import Ticketing from '../arthall/reserv/ticketing';
 
 
 export default function Routers(){
@@ -22,6 +23,8 @@ export default function Routers(){
                 <Route exact path="/member/joinForm"              component={JOIN}/>
                 <Route exact path="/member/mypage"             componet={MyPage}/>
                 <Route exact path="/play/performList"             component={PLAY}/>
+                <Route exact path="/play/performList"             component={PLAY}/>
+                <Route exact path="/reserv/ticketing"             component={Ticketing}/>
 
                 <FOOTER/>
             </Router>

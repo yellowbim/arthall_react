@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import axios from "axios";
 import Paging from './../page/paging2';
 import Modal from './../modal/modal';
+// react 에서 엑셀 다운로드
+
 
 export default class ImgTest extends Component {
     constructor(props) {
@@ -34,11 +36,12 @@ export default class ImgTest extends Component {
         }
 
         // 파일 목록
-        this.props.history.push('/imgTest/'+this.state.page+'/'+this.state.rowSize)
+        this.props.history.push('/'+this.state.page+'/'+this.state.rowSize)
+        console.log('히스토리',this.props.history)
         console.log(this.props.match)
         axios.get("http://localhost:8083/main/fileList?page="+this.state.page+'&rowSize='+this.state.rowSize).then((res) => {
             console.log('파일 전체 개수',res.data)
-            if (res.data.length != 0) {
+            if (res.data.length !== 0) {
                 this.setState({
                     fileList: res.data,
                     totalCnt: res.data[0].totalCnt
@@ -97,6 +100,7 @@ export default class ImgTest extends Component {
             if (gubun == "mp4"){
                 return <video src={require('./../imgUpload/'+fileName)} style={{width:"80px", height:"80px"}} onClick={bigImg}/>;
             } else {
+                console.log('이미지 경로',require('./../imgUpload/'+fileName));
                 return <img src={require('./../imgUpload/'+fileName)} style={{width:"80px", height:"80px"}} onClick={bigImg} />;
             }
         }
@@ -123,6 +127,22 @@ export default class ImgTest extends Component {
             console.log(e)
             this.setState({modal:false})
         }
+
+        // 이미지 다운로드
+        const imgDown = (e) => {
+            const blobSupported = new Blob(['a']).size === 2;
+            console.log('지원 브라우저 확인',blobSupported)
+            console.log('이미지 경로', require('./../imgUpload/'+ this.state.fileList[0].fileName))
+            const element = document.createElement("a");
+            const file = new Blob(
+                [require('./../imgUpload/'+ this.state.fileList[0].fileName)],
+                {type:'image/*'}
+            )
+            element.href = URL.createObjectURL(file);
+            element.download = 'image.jpg';
+            element.click();
+        }
+
 
         return(
             <>
@@ -151,10 +171,11 @@ export default class ImgTest extends Component {
                             {
                                 this.state.fileList.map(
                                     fileList =>
-                                        <tr key = {fileList.seq}>
+                                        <tr key={fileList.seq}>
                                             <td> {fileList.seq} </td>
                                             <td > {fileList.fileName} </td>
-                                            <td> {imgVideo(fileList.fileName)}</td>
+                                            <td> {imgVideo(fileList.fileName)}<button type="button" onClick={imgDown}>이미지 다운로드</button>
+                                            </td>
                                             {
                                                 this.state.modal && <Modal tag={this.state.modalTag} modalClose={onmouseleave}/>
                                             }
@@ -166,8 +187,9 @@ export default class ImgTest extends Component {
 
                         <Paging totalCnt={this.state.totalCnt} page={this.state.page} rowSize={this.state.rowSize} getRowSize={getRowSize} getPage={getPage}/>
                     </div>
-                    <video src={require('./../imgUpload/1619081270029KakaoTalk_20210420_110212053.mp4')} style={{width:"80px", height:"80px"}} autoPlay muted />
+                    {/*<video src={require('./../imgUpload/1619081270029KakaoTalk_20210420_110212053.mp4')} style={{width:"80px", height:"80px"}} autoPlay muted />*/}
                 </div>
+                <button type="button" onClick={imgDown}>이미지 다운로드</button>
             </>
         )
     }

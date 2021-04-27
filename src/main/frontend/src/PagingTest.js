@@ -1,15 +1,28 @@
-import PageSize from './components/topPage/pageSize';
 import React from "react";
+import KaKaoLogin from "./components/kkaoLogin/kakaoLogin";
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import LoginSuccess from './components/kkaoLogin/loginSuccess';
 
 export default function PagingTest() {
     return (
         <>
-            {/* 페이지 크기 구하기 */}
-            <PageSize/>
+            {/* 카카올 로그인 */}
+            <Router>
+                <Route exact path="/" component={KaKaoLogin}/>
+                <Route exact path="/loginSuccess" component={LoginSuccess}/>
+            </Router>
 
-            {/* 이미지, 동영상 업로드 */}
+
+            {/* 엑셀 다운로드 */}
+            {/*<SpringExcelUpload/>*/}
+
+            {/* 페이지 크기 구하기 */}
+            {/*<PageSize/>*/}
+
+            {/* 이미지, 동영상 업로드 / 엑셀 다운로드 */}
             {/*<Router>*/}
-            {/*    <Route path="/:page/:rowSize" component={ImgTest} />*/}
+            {/*    <Route exact path="/" component={ImgTest} />*/}
+            {/*    <Route exact path="/:page/:rowSize" component={ImgTest} />*/}
             {/*</Router>*/}
             {/*<ImgTest/>*/}
 
