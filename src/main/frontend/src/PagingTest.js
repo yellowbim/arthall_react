@@ -1,32 +1,54 @@
 import React from "react";
-import SpringExcelUpload from './components/excelUpload/springExcelUpload';
-import {BrowserRouter as Router, Route} from "react-router-dom";
-import ImgTest from './components/upload/imgTest';
+import PayTest from "./components/pay/payTest";
 
 export default function PagingTest() {
     return (
         <>
+            {/* 결제 api */}
+            {/*
+                import PayTest from "./components/pay/payTest";
+            */}
+            <PayTest/>
+
+
             {/* 카카오, 구글, 페북 로그인 */}
+            {/*
+                import KaKaoLogin from "./components/kkaoLogin/kakaoLogin";
+                import LoginSuccess from './components/kkaoLogin/loginSuccess';
+            */}
             {/*<Router>*/}
             {/*    <Route exact path="/" component={KaKaoLogin}/>*/}
             {/*    <Route exact path="/loginSuccess" component={LoginSuccess}/>*/}
             {/*</Router>*/}
 
-
             {/* 엑셀 다운로드 */}
-            <SpringExcelUpload/>
+            {/*
+                import SpringExcelUpload from './components/excelUpload/springExcelUpload';
+            */}
+            {/*<SpringExcelUpload/>*/}
 
             {/* 페이지 크기 구하기 */}
+            {/*
+                import PageSize from "./components/topPage/pageSize";
+            */}
             {/*<PageSize/>*/}
 
             {/* 이미지, 동영상 업로드 / 엑셀 다운로드 */}
-            <Router>
-                <Route exact path="/" component={ImgTest} />
-                <Route exact path="/:page/:rowSize" component={ImgTest} />
-            </Router>
+            {/*
+                import ImgTest from './components/upload/imgTest';
+            */}
+            {/*<Router>*/}
+            {/*    <Route exact path="/" component={ImgTest} />*/}
+            {/*    <Route exact path="/:page/:rowSize" component={ImgTest} />*/}
+            {/*</Router>*/}
             {/*<ImgTest/>*/}
 
             {/* 카카오 지도 테스트 */}
+            {/*
+                import FunctionKaKaoMap from './components/kakaoMapApi/kakaoMapApi'
+                import KaKaoMapApi from "./components/kakaoMapApi/kakaoMapApi";
+
+            */}
             {/*<FunctionKaKaoMap/>*/}
             {/*<KaKaoMapApi/>*/}
 
@@ -34,9 +56,11 @@ export default function PagingTest() {
             {/*<RoutersTest/>*/}
             {/*<PagingFooter/>*/}
 
-            {/* 폼 양식 전속ㅇ 테스트 */}
+            {/* 폼 양식 전송 테스트 */}
+            {/*
+                import FormTest from "./components/formTest";
+            */}
             {/*<FormTest/>*/}
-            {/*<br/>*/}
         </>
     )
 }
