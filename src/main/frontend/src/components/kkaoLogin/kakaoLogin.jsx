@@ -55,19 +55,18 @@ export default class KaKaoLogin extends Component{
 
         let fbContent;
 
-        fbContent = (<FacebookLogin
-        appId={config.FACEBOOK_LOGIN_JS_KEY}
-        autoLoad={false}
-        fields="name, email, picture"
-        calbacl={this.responseFacebook}/>
+        fbContent = (
+            <FacebookLogin
+                appId={config.FACEBOOK_LOGIN_JS_KEY}
+                autoLoad={false}
+                fields="name, email, picture"
+                calback={this.responseFacebook}
+                render={renderProps => (
+                    <div onClick={renderProps.onClick}>facebook</div>
+            )}
+            />
 
-    )
-
-
-
-
-
-
+        )
 
 
         // 카카오 키

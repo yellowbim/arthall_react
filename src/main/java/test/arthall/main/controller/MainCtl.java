@@ -1,10 +1,12 @@
 package test.arthall.main.controller;
 
 
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,6 +22,7 @@ import test.arthall.play.service.PlaySvc;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -49,6 +52,7 @@ public class MainCtl {
      */
     @RequestMapping("/fileUpload")
     public String fileUpload(@RequestParam MultipartFile file, MainDao param) throws Exception {
+        System.out.println("이미지파일 "+file);
         String originalFileName = file.getOriginalFilename();
         String SAVE_PATH = System.getProperty("user.dir") + "\\src\\main\\frontend\\src\\components\\imgUpload\\";
 
@@ -132,6 +136,64 @@ public class MainCtl {
         System.out.println("========== 엑셀 다운로드 끝 ==========");
 
     }
+
+
+    /***
+     * 파일 엑셀 업로드 및 DB 저장
+     */
+    @RequestMapping("/excelUpload")
+    public List<MainDao> excelUpload(@RequestParam MultipartFile excelFile) throws Exception{
+        System.out.println("엑셀파일"+excelFile);
+
+        List<MainDao> list = new ArrayList<>();
+        try{
+            OPCPackage opcPackage = OPCPackage.open(excelFile.getInputStream());
+            // 엑셀 workbook 생성하기
+            XSSFWorkbook workbook =new XSSFWorkbook(opcPackage);
+
+            // 첫번째 시트 불러오기
+            XSSFSheet sheet = workbook.getSheetAt(0);
+
+            // 왜 마지막 rowNum이 아니라 +1을 해줄까?
+            System.out.println("마지막 시트 숫자"+sheet.getLastRowNum());
+            for (int i = 0; i < sheet.getLastRowNum()+1; i++ ){
+                MainDao param = new MainDao();
+                Row row = sheet.getRow(i);
+
+                // 행이 존재하지 않으면 패스
+                if (null == row || row.getLastCellNum() == 0){
+                    continue;
+                }
+
+                Cell cell = row.getCell(0);
+                // 행의 1번째 열
+
+
+                // 행의 전체 개수를 구하면 for문
+                System.out.println("cell "+cell.getCellType());
+                System.out.println("전체 row.lastCell "+ row.getLastCellNum());
+
+                if (null != cell){
+                    param.setSeq((int) Float.parseFloat(String.valueOf(cell)));
+                }
+
+                // 행의 2번째 열
+                cell = row.getCell(1);
+                if (null != cell){
+                    param.setFileName(String.valueOf(cell));
+                }
+                list.add(param);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    return list;
+    }
+
+
+
+
+
 
 
 

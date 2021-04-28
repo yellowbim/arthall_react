@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import axios from "axios";
 import Paging from './../page/paging2';
 import Modal from './../modal/modal';
-// react 에서 엑셀 다운로드
-
 
 export default class ImgTest extends Component {
     constructor(props) {
@@ -54,6 +52,7 @@ export default class ImgTest extends Component {
 
         // 파일  첨부
         const onChange1 = (e) => {
+            console.log('파일 목록',e.target.files)
             this.state.file = e.target.files[0]
         }
 
@@ -151,6 +150,7 @@ export default class ImgTest extends Component {
                 {/*    <input type="file" onChange={onChange}/>*/}
                 {/*    */}
                 {/*</div>*/}
+                업로드
                 <form encType="multipart/form-data">
                     <input multiple="multiple" type="file" name="filename" onChange={onChange1} formEncType="multipart/form-data"/>
                     <button onClick={onClick}>제출</button>
