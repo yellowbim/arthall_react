@@ -18,13 +18,12 @@ export default function Routers(){
             <Router>
                 <TOP/>
 
-                <Route exact path="/"                             component={MAIN} />
-                <Route exact path="/member/loginForm"             component={LOGIN}/>
-                <Route exact path="/member/joinForm"              component={JOIN}/>
-                <Route exact path="/member/mypage"             componet={MyPage}/>
-                <Route exact path="/play/performList"             component={PLAY}/>
-                <Route exact path="/play/performList"             component={PLAY}/>
-                <Route exact path="/reserv/ticketing"             component={Ticketing}/>
+                <Route exact path="/index/"                             component={MAIN} />
+                <Route exact path="/index/member/loginForm"             component={LOGIN}/>
+                <Route exact path="/index/member/joinForm"              component={JOIN}/>
+                <Route exact path="/index/member/mypage"                componet={MyPage}/>
+                <Route exact path="/index/play/performList"             component={PLAY}/>
+                <Route exact path="/index/reserv/ticketing"             component={Ticketing}/>
 
                 <FOOTER/>
             </Router>

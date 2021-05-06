@@ -33,7 +33,7 @@ export default class login extends Component{
                 } else {
                     const qs = require("qs");
                     window.sessionStorage.setItem("mbrId",this.state.mbrId);         // session 에 mbrinfo 저장, 일회성
-                    document.location.href = "/";
+                    document.location.href = "/index";
                 }
             })
     }

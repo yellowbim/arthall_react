@@ -1,9 +1,15 @@
 package test.arthall.play.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import test.arthall.common.commonDao;
 
 @Data
+/***
+ * warning: Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '@EqualsAndHashCode(callSuper=false)' to your type.
+ * 경로를 안띄우려고 사용
+ */
+@EqualsAndHashCode(callSuper=false)
 public class PlayDao extends commonDao {
 
     // 공연

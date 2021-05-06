@@ -1,4 +1,4 @@
-/*global kakao*/                                                                                                                                                                // 카카오를 글로벌로 선언해놔야 에러가 안남
+/*global kakao*/                                                                                                                                                                                                                                                                                                                                // 카카오를 글로벌로 선언해놔야 에러가 안남
 import React, {Component} from "react";
 import styled from 'styled-components'
 import * as config from './../../config';
@@ -36,7 +36,6 @@ export default class KaKaoMapApi extends Component {
         return (
             <>
                 <div><strong>카카오 우편번호, 지도 테스트</strong></div>
-                <div>우편번호 조회하기</div>
                 <div>
                     <span>지도 띄우기</span>
                     {/* 지도를 띄우는곳, styled로 직접 스타일을 적용시킴(but overflow, width, height가 적용이 안됨)*/}

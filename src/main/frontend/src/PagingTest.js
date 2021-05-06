@@ -1,14 +1,36 @@
 import React from "react";
-import PayTest from "./components/pay/payTest";
+import {BrowserRouter as Router, Link, Route} from "react-router-dom";
+import KaKaoLogin from "./components/kkaoLogin/kakaoLogin";
+import LoginSuccess from './components/kkaoLogin/loginSuccess';
+import SpringExcelUpload from './components/excelUpload/springExcelUpload';
+import ImgTest from './components/upload/imgTest';
+import Book from './components/bookapi/book';
+import MovieApi from "./components/movie/movieApi";
 
 export default function PagingTest() {
     return (
         <>
+            {/* 한국영화데이터베이스 api */}
+            {/*
+                import MovieApi from "./components/movie/movieApi";
+            */}
+            <div><h1>================== 한국 영화 데이터베이스 api ==================</h1></div>
+            <MovieApi/>
+
+            {/* 네이버 도서 검색 api */}
+            {/*
+                import Book from './components/bookapi/book';
+            */}
+            <br/><br/><br/><br/>
+            <div><h1>================== 네이버 검색 (도서) api 테스트 ==================</h1></div>
+            <Book/>
+
+
             {/* 결제 api */}
             {/*
                 import PayTest from "./components/pay/payTest";
             */}
-            <PayTest/>
+            {/*<PayTest/>*/}
 
 
             {/* 카카오, 구글, 페북 로그인 */}
@@ -16,16 +38,20 @@ export default function PagingTest() {
                 import KaKaoLogin from "./components/kkaoLogin/kakaoLogin";
                 import LoginSuccess from './components/kkaoLogin/loginSuccess';
             */}
-            {/*<Router>*/}
-            {/*    <Route exact path="/" component={KaKaoLogin}/>*/}
-            {/*    <Route exact path="/loginSuccess" component={LoginSuccess}/>*/}
-            {/*</Router>*/}
+            <br/><br/><br/><br/>
+            <div><h1>================== 카카오, 구글 로그인 (페북 안됨) ==================</h1></div>
+            <Router>
+                <Route exact path="/pagingTest" component={KaKaoLogin}/>
+                <Route exact path="/pagingTest/loginSuccess" component={LoginSuccess}/>
+            </Router>
 
             {/* 엑셀 다운로드 */}
             {/*
                 import SpringExcelUpload from './components/excelUpload/springExcelUpload';
             */}
-            {/*<SpringExcelUpload/>*/}
+            <br/><br/><br/><br/>
+            <div><h1>================== 엑셀 다운로드/ 업로드 ==================</h1></div>
+            <SpringExcelUpload/>
 
             {/* 페이지 크기 구하기 */}
             {/*
@@ -37,10 +63,12 @@ export default function PagingTest() {
             {/*
                 import ImgTest from './components/upload/imgTest';
             */}
-            {/*<Router>*/}
-            {/*    <Route exact path="/" component={ImgTest} />*/}
-            {/*    <Route exact path="/:page/:rowSize" component={ImgTest} />*/}
-            {/*</Router>*/}
+            <br/><br/><br/><br/>
+            <div><h1>================== 이미지, 동영상 업로드 ==================</h1></div><br/><br/><br/><br/>
+            <Router>
+                <Route exact path="/pagingTest" component={ImgTest} />
+                <Route exact path="/pagingTest/:page/:rowSize" component={ImgTest} />
+            </Router>
             {/*<ImgTest/>*/}
 
             {/* 카카오 지도 테스트 */}
@@ -49,6 +77,11 @@ export default function PagingTest() {
                 import KaKaoMapApi from "./components/kakaoMapApi/kakaoMapApi";
 
             */}
+            {/*<br/><br/><br/><br/>*/}
+            <div><h1>================== 카카오 지도 테스트 ==================</h1></div><br/><br/><br/><br/>
+            <div> arthall 테스트는
+            <Link to="/index" style={{backgroundColor:"red"}}> 여기로 이동</Link>
+            </div>
             {/*<FunctionKaKaoMap/>*/}
             {/*<KaKaoMapApi/>*/}
 

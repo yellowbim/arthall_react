@@ -247,7 +247,7 @@ export default function Join() {
             console.log(res.data);
             if (res.data == '0000'){
                 alert("축하합니다~! \n 회원가입이 완료되었습니다");
-                document.location.href="/member/loginForm";
+                document.location.href="/index/member/loginForm";
             } else{
 
             }

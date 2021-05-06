@@ -106,13 +106,13 @@ public class MainCtl {
         int rowNum = 0;
 
         // Header
-        row = sheet.createRow(rowNum++);
-        cell = row.createCell(0);
-        cell.setCellValue("순서");
-        cell = row.createCell(1);
-        cell.setCellValue("경로");
-        cell = row.createCell(2);
-        cell.setCellValue("이미지");
+//        row = sheet.createRow(rowNum++);
+//        cell = row.createCell(0);
+//        cell.setCellValue("순서");
+//        cell = row.createCell(1);
+//        cell.setCellValue("경로");
+//        cell = row.createCell(2);
+//        cell.setCellValue("이미지");
 
         for (int i = 0; i< paramDao.size(); i++){
             row = sheet.createRow(rowNum++);

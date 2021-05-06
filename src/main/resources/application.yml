@@ -3,18 +3,21 @@ spring:
     exclude: org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration
     #jpa:
     #show-sql: true
-# 멀티 데이터베이스 설정
   datasource1:
     hikari:
       username: root
       password: root1234
       driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
       jdbc-url: jdbc:log4jdbc:mysql://localhost:3306/arthall?characterEncoding=utf8
+      # AWS RDB 주소
+#      jdbc-url: jdbc:log4jdbc:mysql://awsdb.crvwliyarnwn.ap-northeast-2.rds.amazonaws.com/arthall?characterEncoding=utf8
+
 
   servlet:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
+# 멀티 데이터베이스 설정
   #  datasource2:
 #    hikari:
 #      username: root
@@ -33,6 +36,8 @@ logging:
 jwt:
   secret: jwtsecretkey
 
+server:
+  port: 8083
 
 # 이건 왜 적용이 안되는지를 모르것네
 #mybatis:

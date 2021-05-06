@@ -34,10 +34,8 @@ export default class ImgTest extends Component {
         }
 
         // 파일 목록
-        this.props.history.push('/'+this.state.page+'/'+this.state.rowSize)
-        console.log('히스토리',this.props.history)
-        console.log(this.props.match)
-        axios.get("http://localhost:8083/main/fileList?page="+this.state.page+'&rowSize='+this.state.rowSize).then((res) => {
+        this.props.history.push('/test/pagingTest/'+this.state.page+'/'+this.state.rowSize)
+        axios.post("/main/fileList?page="+this.state.page+'&rowSize='+this.state.rowSize).then((res) => {
             console.log('파일 전체 개수',res.data)
             if (res.data.length !== 0) {
                 this.setState({
@@ -68,7 +66,7 @@ export default class ImgTest extends Component {
                 }
             }
 
-            axios.post("http://localhost:8083/main/fileUpload", formData).then( (res) => {
+            axios.post("http://ec2-13-125-199-82.ap-northeast-2.compute.amazonaws.com:8080/test/main/fileUpload", formData).then( (res) => {
                 console.log(res);
             });
         }

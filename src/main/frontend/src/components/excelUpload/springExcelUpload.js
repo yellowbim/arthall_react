@@ -74,16 +74,14 @@ export default class SpringExcelUpload extends Component{
         return (
             <>
                 <div style={{marginBottom:'10px'}}>
-                    <div>============================= 엑셀 다운로드 =============================</div>
                     <form action="http://localhost:8083/main/excelDown?page=1&rowSize=3" method="post">
-                        <button type="submit">엑셀 다운로드</button>
+                        <button type="submit">샘플 엑셀 다운로드</button>
                     </form>
 
-                    <button type="button" style={{border:"10px", fontWeight:"bold"}} onClick={serverExcelDown}>서버에서 조회 후 <br/> 엑셀 다운로드</button>
-                    <button type="button" style={{border:"10px", fontWeight:"bold"}} onClick={reactExcelDown}>react 자체 엑셀 다운로드</button>
+                    {/*<button type="button" style={{border:"10px", fontWeight:"bold"}} onClick={serverExcelDown}>서버에서 조회 후 <br/> 엑셀 다운로드</button>*/}
+                    {/*<button type="button" style={{border:"10px", fontWeight:"bold"}} onClick={reactExcelDown}>react 자체 엑셀 다운로드</button>*/}
                 </div>
                 <div>
-                    <div>============================= 엑셀 업로드 =============================</div>
                     <form encType="multipart/form-data">
                         <input multiple="multiple" type="file" formEncType="multipart/form-data" onChange={selectExcel}/>
                         <button type="button" onClick={excelUpload}>엑셀 업로드</button>

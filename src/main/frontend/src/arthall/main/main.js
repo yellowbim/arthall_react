@@ -21,6 +21,8 @@ export default class main extends  Component{
     }
 
     componentDidMount() {
+        console.log('컴포넌트',Component);
+        console.log('props',this.props);
         axios.post("http://localhost:8083/main/").then((res) => {
             console.log('공연 정보 조회 : ', res.data);
             this.setState({playList:res.data});     // 공연 정보 생성
