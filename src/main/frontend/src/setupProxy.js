@@ -6,9 +6,10 @@ module.exports = (app) => {
 
     // main으로 가는 경우는 aws 서버 주소로 호출하게 해놨음
     app.use(
-        '/main/fileList',
+        '/main',
         createProxyMiddleware({
-            target: 'http://ec2-13-125-199-82.ap-northeast-2.compute.amazonaws.com:8080/test',
+            // target: 'http://ec2-13-125-199-82.ap-northeast-2.compute.amazonaws.com:8080/test',
+            target: 'http://localhost:8083',
             changeOrigin: true,
         }))
 

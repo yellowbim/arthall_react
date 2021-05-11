@@ -45,7 +45,7 @@ export default class MovieApi extends Component{
                     this.state.data.map(
                         movie =>
                             <div>
-                                <div>영화제목 : {movie.title}({movie.titleEng})</div>
+                                <div>영화제목 : dangerouslySetInnerHTML={{__html: movie.title }}({movie.titleEng})</div>
                                 <div>kmdbUrl : {movie.genre}</div>
                                 <div>포스터 이미지 :</div>
                                 {

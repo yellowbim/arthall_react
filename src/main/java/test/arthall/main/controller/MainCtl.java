@@ -9,7 +9,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +26,7 @@ import java.util.List;
 
 
 // 로컬 react서버,  크롬 api test 사이트 CORS 제한 해제
-@CrossOrigin(origins = {"http://localhost:3000","chrome-extension://aejoelaoggembcahagimdiliamlcdmfm"})
+//@CrossOrigin(origins = {"http://localhost:3000","http://www.yahmedora.com","http://13.125.199.82:3000.","chrome-extension://aejoelaoggembcahagimdiliamlcdmfm"})
 @RestController
 @RequestMapping("/main")
 public class MainCtl {

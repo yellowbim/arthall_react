@@ -60,7 +60,7 @@ import java.io.PrintWriter;
  *
  ***/
 // 로컬 react서버,  크롬 api test 사이트 CORS 제한 해제
-@CrossOrigin(origins = {"http://localhost:3000","chrome-extension://aejoelaoggembcahagimdiliamlcdmfm"})
+@CrossOrigin(origins = {"http://www.yahmedora.com","chrome-extension://aejoelaoggembcahagimdiliamlcdmfm"})
 @RestController
 @RequestMapping("/mbr")
 public class MemberCtl {

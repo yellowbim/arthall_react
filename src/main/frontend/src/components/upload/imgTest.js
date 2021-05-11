@@ -27,6 +27,10 @@ export default class ImgTest extends Component {
         const formData = new FormData();
         formData.append("page",this.state.page)
         formData.append("rowSize",this.state.rowSize)
+        // const headers = {
+        //         "Access-Control-Allow-Origin" : "*"
+        // }
+
 
         // formData값 로그
         for(let pair of formData.entries()) {
@@ -34,7 +38,7 @@ export default class ImgTest extends Component {
         }
 
         // 파일 목록
-        this.props.history.push('/test/pagingTest/'+this.state.page+'/'+this.state.rowSize)
+        // this.props.history.push('/test/pagingTest/'+this.state.page+'/'+this.state.rowSize)
         axios.post("/main/fileList?page="+this.state.page+'&rowSize='+this.state.rowSize).then((res) => {
             console.log('파일 전체 개수',res.data)
             if (res.data.length !== 0) {

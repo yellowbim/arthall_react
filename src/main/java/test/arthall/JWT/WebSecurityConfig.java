@@ -54,9 +54,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         // For CORS error
         //httpSecurity.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
-        httpSecurity.cors().disable();
+        httpSecurity.cors().disable()
+                    .csrf().disable();
         // We don't need CSRF for this example
-        httpSecurity.csrf().disable();
+//        httpSecurity.csrf().disable();
                 // dont authenticate this particular request
                 // 특정 경로 권한 해제
 //                .authorizeRequests().antMatchers("/authenticate","/api/*","/mbr/*","/main/*","/play/*","/*").permitAll().

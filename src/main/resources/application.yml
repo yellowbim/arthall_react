@@ -8,9 +8,9 @@ spring:
       username: root
       password: root1234
       driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-      jdbc-url: jdbc:log4jdbc:mysql://localhost:3306/arthall?characterEncoding=utf8
+#      jdbc-url: jdbc:log4jdbc:mysql://localhost:3306/arthall?characterEncoding=utf8
       # AWS RDB 주소
-#      jdbc-url: jdbc:log4jdbc:mysql://awsdb.crvwliyarnwn.ap-northeast-2.rds.amazonaws.com/arthall?characterEncoding=utf8
+      jdbc-url: jdbc:log4jdbc:mysql://awsdb.crvwliyarnwn.ap-northeast-2.rds.amazonaws.com/arthall?characterEncoding=utf8
 
 
   servlet:

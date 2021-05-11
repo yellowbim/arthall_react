@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import test.arthall.board.model.BoardDao;
 import test.arthall.board.service.BoardService;
 
-@CrossOrigin(origins = {"http://localhost:3000","chrome-extension://aejoelaoggembcahagimdiliamlcdmfm"})
+@CrossOrigin(origins = {"http://localhost:3000","http://www.yahmedora.com","chrome-extension://aejoelaoggembcahagimdiliamlcdmfm"})
 @RestController
 @RequestMapping("/api")
 public class BoardController {
