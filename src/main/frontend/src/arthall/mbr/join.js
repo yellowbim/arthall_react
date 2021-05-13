@@ -70,7 +70,7 @@ export default function Join() {
     // 아이디 중복 확인 처리 함수
     const onClick = (e) => {
         if (mbrId == ""){alert("아이디를 입력해주세요"); return false;}
-        axios.get("http://api/mbr/valChk",{params:{mbrId:mbrId}}).then((res) => {
+        axios.get("http://localhost:8083/mbr/valChk",{params:{mbrId:mbrId}}).then((res) => {
             // 중복 확인은 결과를 담을 필요가 없음
             if (res.data == '1111'){
                 alert("사용중인 아이디 입니다.\n아이디를 다시 입력해주세요");
